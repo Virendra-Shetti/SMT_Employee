@@ -1,0 +1,14 @@
+{
+	"sideNav": [{
+		"navItem" : "Home",
+		"icon":"sap-icon://home"
+	},
+	{
+		"navItem" : "Profile",
+		"icon":"sap-icon://customer"
+	},
+	{
+		"navItem" : "Others",
+		"icon":"sap-icon://display-more"
+	}]
+}
