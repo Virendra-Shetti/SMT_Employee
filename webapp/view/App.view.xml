@@ -1,5 +1,5 @@
 <mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true"
-	xmlns="sap.m" xmlns:tnt="sap.tnt">
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:card="sap.f.cards" xmlns:f="sap.f">
 	<!--<Shell id="shell">-->
 	<App id="app">
 		<pages>
@@ -14,7 +14,7 @@
 								<ToolbarSpacer/>
 								<Text class="headerText" text="{i18n>headerSigniwis}"/>
 								<ToolbarSpacer/>
-								<Button type="Transparent" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
+								<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
 								<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>
 							</tnt:ToolHeader>
 						</tnt:header>
@@ -22,17 +22,59 @@
 							<tnt:SideNavigation itemSelect=".onItemSelect">
 								<tnt:NavigationList items="{localModel>/sideNav}">
 									<tnt:items>
-										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" 
-										key="{localModel>key}" />
+										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" key="{localModel>key}"/>
 									</tnt:items>
 								</tnt:NavigationList>
+					<tnt:fixedItem>
+					<tnt:NavigationList items="{localModel>/fixedNavigation}">
+						<tnt:NavigationListItem text="{localModel>title}"/>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
 							</tnt:SideNavigation>
 						</tnt:sideContent>
 						<tnt:mainContents>
 							<NavContainer id="pageContainer">
 								<pages>
-									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
-										<Text text="This is the first page"/>
+									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%" >
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>Birthday}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List>
+														<CustomListItem>
+													
+														</CustomListItem>
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>NewHires}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>NewsFeed}"/>
+											
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>QuickLinks}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
 									</ScrollContainer>
 									<ScrollContainer id="page2" horizontal="false" vertical="true" height="100%">
 										<Text text="This is second page"/>
