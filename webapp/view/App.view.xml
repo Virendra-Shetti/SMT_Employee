@@ -1,11 +1,43 @@
-<mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content></content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+<mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true"
+	xmlns="sap.m" xmlns:tnt="sap.tnt">
+	<!--<Shell id="shell">-->
+	<App id="app">
+		<pages>
+			<Page id="page" title="{i18n>title}" showHeader="false">
+				<content>
+					<tnt:ToolPage >
+						<tnt:header>
+							<tnt:ToolHeader>
+								<Button type="Transparent" icon="sap-icon://menu2"/>
+								<ToolbarSpacer width="1em"/>
+								<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>
+								<ToolbarSpacer/>
+								<Text class="headerText" text="{i18n>headerSigniwis}"/>
+								<ToolbarSpacer/>
+								<Button type="Transparent" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
+								<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>
+							</tnt:ToolHeader>
+						</tnt:header>
+						<tnt:sideContent>
+							<tnt:SideNavigation itemSelect=".onsalesSelect">
+								<tnt:NavigationList items="{localModel>/sideNav}">
+									<tnt:items>
+										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}"></tnt:NavigationListItem>
+									</tnt:items>
+								</tnt:NavigationList>
+							</tnt:SideNavigation>
+						</tnt:sideContent>
+						<!--<tnt:mainContents>-->
+						<!--	<NavContainer >-->
+						<!--		<pages>-->
+						<!--			<Page showHeader="false"></Page>-->
+						<!--		</pages>-->
+						<!--	</NavContainer>-->
+						<!--</tnt:mainContents>-->
+					</tnt:ToolPage >
+				</content>
+			</Page>
+		</pages>
+	</App>
+	<!--</Shell>-->
 </mvc:View>

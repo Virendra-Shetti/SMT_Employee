@@ -14,7 +14,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -31,7 +30,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
@@ -58,6 +56,10 @@
 				"settings": {
 					"bundleName": "SE.SMT_Employee.i18n.i18n"
 				}
+			},
+			"localModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/localModel.json"
 			}
 		},
 		"resources": {
@@ -78,7 +80,9 @@
 			"routes": [{
 				"name": "RouteApp",
 				"pattern": "RouteApp",
-				"target": ["TargetApp"]
+				"target": [
+					"TargetApp"
+				]
 			}],
 			"targets": {
 				"TargetApp": {
