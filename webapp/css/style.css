@@ -1,4 +1,16 @@
 /* Enter your custom styles here */
-.headerText{
-	font-size:2vw;
+
+.headerText {
+    font-size: 2vw !important;
+}
+
+.profileImage {
+    position: absolute !important;
+    margin-top: -3em !important;
+    margin-left: 45% !important;
+    
+}
+
+.coverImage {
+    object-fit: cover !important;
 }
