@@ -19,21 +19,30 @@
 							</tnt:ToolHeader>
 						</tnt:header>
 						<tnt:sideContent>
-							<tnt:SideNavigation itemSelect=".onsalesSelect">
+							<tnt:SideNavigation itemSelect=".onItemSelect">
 								<tnt:NavigationList items="{localModel>/sideNav}">
 									<tnt:items>
-										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}"></tnt:NavigationListItem>
+										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" 
+										key="{localModel>key}" />
 									</tnt:items>
 								</tnt:NavigationList>
 							</tnt:SideNavigation>
 						</tnt:sideContent>
-						<!--<tnt:mainContents>-->
-						<!--	<NavContainer >-->
-						<!--		<pages>-->
-						<!--			<Page showHeader="false"></Page>-->
-						<!--		</pages>-->
-						<!--	</NavContainer>-->
-						<!--</tnt:mainContents>-->
+						<tnt:mainContents>
+							<NavContainer id="pageContainer">
+								<pages>
+									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
+										<Text text="This is the first page"/>
+									</ScrollContainer>
+									<ScrollContainer id="page2" horizontal="false" vertical="true" height="100%">
+										<Text text="This is second page"/>
+									</ScrollContainer>
+									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
+										<Text text="This is third page"/>
+									</ScrollContainer>
+								</pages>
+							</NavContainer>
+						</tnt:mainContents>
 					</tnt:ToolPage >
 				</content>
 			</Page>
