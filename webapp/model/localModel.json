@@ -11,5 +11,12 @@
 		"navItem": "Others",
 		"icon": "sap-icon://display-more",
 		"key": "page3"
-	}]
+	}],
+	"fixedNavigation": {
+			"title": "Request"
+		
+
+		}
+
+	
 }
