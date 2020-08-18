@@ -1,14 +1,15 @@
 {
 	"sideNav": [{
-		"navItem" : "Home",
-		"icon":"sap-icon://home"
-	},
-	{
-		"navItem" : "Profile",
-		"icon":"sap-icon://customer"
-	},
-	{
-		"navItem" : "Others",
-		"icon":"sap-icon://display-more"
+		"navItem": "Home",
+		"icon": "sap-icon://home",
+		"key": "page1"
+	}, {
+		"navItem": "Profile",
+		"icon": "sap-icon://customer",
+		"key": "page2"
+	}, {
+		"navItem": "Others",
+		"icon": "sap-icon://display-more",
+		"key": "page3"
 	}]
 }
