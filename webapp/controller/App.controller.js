@@ -91,7 +91,7 @@ sap.ui.define([
 				oList = oItem.getParent();
 
 			oList.removeItem(oItem);
-			sap.m.MessageToast.show("Item Closed: " + oItem.getTitle());
+			sap.m.MessageToast.show("Item closed: " + oItem.getTitle());
 		}
 
 	});
