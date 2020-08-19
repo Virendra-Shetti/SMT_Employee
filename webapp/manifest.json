@@ -60,6 +60,10 @@
 			"localModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/localModel.json"
+			},
+			"birthdayModel":{
+					"type": "sap.ui.model.json.JSONModel",
+				"uri": "model/birthday.json"
 			}
 		},
 		"resources": {

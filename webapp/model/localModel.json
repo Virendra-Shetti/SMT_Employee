@@ -12,11 +12,13 @@
 		"icon": "sap-icon://display-more",
 		"key": "page3"
 	}],
-	"fixedNavigation": {
-			"title": "Request"
+	"fixedNavigation": [{
+			"title": "Request",
+			"icon":"sap-icon://create-leave-request",
+			"key":"page4"
 		
 
-		}
+		}]
 
 	
 }
