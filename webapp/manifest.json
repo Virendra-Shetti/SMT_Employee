@@ -64,7 +64,20 @@
 			"birthdayModel":{
 					"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/birthday.json"
+			},
+			"notifyData":{
+				"type": "sap.ui.model.json.JSONModel",
+				"uri":"model/notify.json"
+			},
+			"newsData":{
+					"type": "sap.ui.model.json.JSONModel",
+				"uri":"model/news.json"
+			},
+				"quicklinksData":{
+					"type": "sap.ui.model.json.JSONModel",
+				"uri":"model/quicklinks.json"
 			}
+			
 		},
 		"resources": {
 			"css": [{

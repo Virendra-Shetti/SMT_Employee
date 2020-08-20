@@ -1,0 +1,21 @@
+{
+	"data": [{
+
+		"Department": "UI5 developer",
+
+		"empName": "Sham"
+
+	}, {
+
+		"Department": "UI5 developer",
+
+		"empName": "John"
+
+	}, {
+
+		"Department": "ABAP developer",
+
+		"empName": "Adam"
+
+	}]
+}

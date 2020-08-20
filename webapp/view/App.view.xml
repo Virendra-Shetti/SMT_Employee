@@ -27,7 +27,7 @@
 								</tnt:NavigationList>
 								<tnt:fixedItem>
 									<tnt:NavigationList items="{localModel>/fixedNavigation}">
-										<tnt:NavigationListItem text="{localModel>title}" icon="{localModel>icon}" key="{localModel>key}"/>
+										<tnt:NavigationListItem  text="{localModel>title}" icon="{localModel>icon}"  key="{localModel>key}"/>
 									</tnt:NavigationList>
 								</tnt:fixedItem>
 							</tnt:SideNavigation>
@@ -36,7 +36,7 @@
 							<NavContainer id="pageContainer">
 								<pages>
 									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
-										<f:Card class="sapUiMediumMargin" width="400px">
+										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
 												<card:Header title="{i18n>Birthday}"/>
 											</f:header>
@@ -50,7 +50,7 @@
 												</ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="400px">
+										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
 												<card:Header title="{i18n>NewHires}"/>
 											</f:header>
@@ -58,32 +58,39 @@
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="400px">
+										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
 												<card:Header title="{i18n>NewsFeed}"/>
-												<HBox>
+											
 													<ToolbarSpacer></ToolbarSpacer>
-													<Button text="AddNewsFeed" type="Transparent" icon="sap-icon://add" press="onAdd"></Button>
-												</HBox>
+													<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
+											
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
 													<List items="{newsData>/data}" id="listid">
 														<items>
-															<!--<ObjectListItem number="{newsData>eDate}" intro="{newsData>Name}" title="{newsData>News}" numberUnit="{newsData>sDate}" icon="{newsData>Time}"></ObjectListItem>-->
+
 															<NotificationListItem title="{newsData>Name}" description="{newsData>News}" showCloseButton="true" datetime="{newsData>sDate}"
-																close=".onItemClose" press=".onListItemPress"/>
+																authorName="{newsData>Time}" close=".onItemClose" press=".onListItemPress"/>
 														</items>
 													</List>
 												</ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="400px">
+										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
 												<card:Header title="{i18n>QuickLinks}"/>
 											</f:header>
 											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List items="{quicklinksData>/data}">
+														<items>
+															<FeedListItem icon="{quicklinksData>icon}" info="{quicklinksData>Author}" timestamp="{quicklinksData>Date}" text="{quicklinksData>Text}"/>
+														
+														</items>
+													</List>
+												</ScrollContainer>
 											</f:content>
 										</f:Card>
 									</ScrollContainer>
