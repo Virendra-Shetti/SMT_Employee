@@ -7,6 +7,7 @@ sap.ui.define([
 	return Controller.extend("SE.SMT_Employee.controller.App", {
 		onInit: function () {
 
+
 			this._showFormFragment("Display");
 			this._showFormFragment("Display2");
 sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
@@ -19,11 +20,21 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			var oModel = new sap.ui.model.json.JSONModel();
 			this.getOwnerComponent().setModel(oModel, "newsData");
 
+
 		},
+			
 		onItemSelect: function (oEvent) {
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 		},
+
+	handleChange: function () {
+			debugger;
+					var oFragId = this.createId("newsid");
+			var currentDate = new Date();
+			// this.getView().byId("datePick").getValue();
+		sap.ui.core.Fragment.byId(oFragId, "datePick").setMinDate(currentDate);
+  },
 		onChangeProfile: function () {
 			debugger;
 			var that = this;
@@ -337,6 +348,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 				this._showFormFragment("Change2");
 				sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").bindElement("localModel>/EmpDetail/0");
 			}
+
 		},
 		onPress: function (oEvent) {
 			debugger;
@@ -358,6 +370,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			}
 
 		},
+
 		_onAddFrag: function () {
 			if (!this.onAddFrag) {
 				var oId = this.createId("newsid");
@@ -371,43 +384,43 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			debugger;
 			this._onAddFrag().open();
 		},
-		onCancel: function () {
-			this._onAddFrag().close();
-		},
+		// onCancel: function () {
+		// 	this._onAddFrag().close();
+		// },
 		arr: [],
 		onPost: function () {
 			debugger;
 
 			var oFragId = this.createId("newsid");
 
-			var activityId = sap.ui.core.Fragment.byId(oFragId, "id").getValue();
 			var activityName = sap.ui.core.Fragment.byId(oFragId, "name").getValue();
 			var newsDescription = sap.ui.core.Fragment.byId(oFragId, "desc").getValue();
-			var startDate = sap.ui.core.Fragment.byId(oFragId, "startdate").getValue();
-			var endDate = sap.ui.core.Fragment.byId(oFragId, "enddate").getValue();
+			var startDate = sap.ui.core.Fragment.byId(oFragId, "datePick").getValue();
+
 			var time = sap.ui.core.Fragment.byId(oFragId, "time").getValue();
 
-			if (activityId === "" && activityName === "" && newsDescription === "" && startDate === "" && endDate === "" && time === "") {
+			if (activityName === "" && newsDescription === "" && startDate === "" && time === "") {
 
 				sap.m.MessageToast.show("Please fill the blank");
 			} else {
 				var obj = {
-					Id: activityId,
+
 					Name: activityName,
 					News: newsDescription,
 					sDate: startDate,
-					eDate: endDate,
+
 					Time: time
 				};
-				this.arr.push(obj);
-				this.getOwnerComponent().getModel("newsData").setProperty("/data", this.arr);
+				var oNewsModel = this.getOwnerComponent().getModel("newsData").getProperty("/data");
+				oNewsModel.push(obj);
+				this.getOwnerComponent().getModel("newsData").setProperty("/data", oNewsModel);
 
-				sap.ui.core.Fragment.byId(oFragId, "id").setValue("");
 				sap.ui.core.Fragment.byId(oFragId, "name").setValue("");
 				sap.ui.core.Fragment.byId(oFragId, "desc").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "startdate").setValue("");
-				sap.ui.core.Fragment().byId(oFragId, "enddate").setValue("");
-				sap.ui.core.Fragment().byId(oFragId, "time").setValue("");
+				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
+
+				sap.ui.core.Fragment.byId(oFragId, "time").setValue("");
+					this._onAddFrag().close();
 			}
 		},
 		onItemClose: function (oEvent) {
@@ -415,7 +428,14 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 				oList = oItem.getParent();
 
 			oList.removeItem(oItem);
-			sap.m.MessageToast.show("Item close: " + oItem.getTitle());
+			// sap.m.MessageToast.show("Item closed: " + oItem.getTitle());
+		},
+		onItemNotifyClose: function (oEvent) {
+			var oItem = oEvent.getSource(),
+				oList = oItem.getParent();
+
+			oList.removeItem(oItem);
+			// sap.m.MessageToast.show("Item closed ");
 		}
 
 	});
