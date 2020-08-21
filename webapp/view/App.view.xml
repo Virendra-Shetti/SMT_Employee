@@ -109,7 +109,7 @@
 										</VBox>
 									</ScrollContainer>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
-										<Text text="This is third page"/>
+										<Text text="This third page"/>
 									</ScrollContainer>
 								</pages>
 							</NavContainer>
