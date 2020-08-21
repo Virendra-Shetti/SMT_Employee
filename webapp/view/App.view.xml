@@ -1,5 +1,5 @@
 <mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true"
-	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:ux="sap.uxap">
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:card="sap.f.cards" xmlns:f="sap.f" xmlns:ux="sap.uxap">
 	<!--<Shell id="shell">-->
 	<App id="app">
 		<pages>
@@ -14,7 +14,7 @@
 								<ToolbarSpacer/>
 								<Text class="headerText" text="{i18n>headerSigniwis}"/>
 								<ToolbarSpacer/>
-								<Button type="Transparent" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
+								<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
 								<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>
 							</tnt:ToolHeader>
 						</tnt:header>
@@ -25,24 +25,64 @@
 										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" key="{localModel>key}"/>
 									</tnt:items>
 								</tnt:NavigationList>
+								<tnt:fixedItem>
+									<tnt:NavigationList items="{localModel>/fixedNavigation}">
+										<tnt:NavigationListItem text="{localModel>title}"/>
+									</tnt:NavigationList>
+								</tnt:fixedItem>
 							</tnt:SideNavigation>
 						</tnt:sideContent>
 						<tnt:mainContents>
 							<NavContainer id="pageContainer">
 								<pages>
 									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
-										<Text text="This is the first page"/>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>Birthday}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List>
+														<CustomListItem></CustomListItem>
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>NewHires}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>NewsFeed}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="400px">
+											<f:header>
+												<card:Header title="{i18n>QuickLinks}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+											</f:content>
+										</f:Card>
 									</ScrollContainer>
 									<Page id="page2" showHeader="false" enableScrolling="true">
 										<VBox width="100%">
 											<Image class="coverImage" src="https://cdn.pixabay.com/photo/2017/03/05/21/43/planet-2120004_960_720.jpg" width="100%" height="12rem"
 												mode="Image"/>
-											<Avatar class="profileImage" AvatarType="Image" src="https://cdn.pixabay.com/photo/2020/07/21/05/50/pine-5425201__340.jpg" displaySize="XL"
-												press="onPress" badgeIcon="sap-icon://camera" badgeTooltip="Take Photo"/>
+											<Avatar class="profileImage" src="{localModel>/profilePic}" displaySize="XL"
+												press="onChangeProfile" badgeIcon="sap-icon://camera" badgeTooltip="Take Photo"/>
 										</VBox>
 										<Toolbar>
 											<ToolbarSpacer/>
-											<Switch state="true" customTextOn="{i18n>edit}" customTextOff="{i18n>save}"/>
+											<Switch state="true" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
 										</Toolbar>
 										<ux:ObjectPageLayout useIconTabBar="true">
 											<ux:headerTitle >
@@ -58,19 +98,19 @@
 											<ux:sections>
 												<ux:ObjectPageSection title="{i18n>about}">
 													<ux:subSections>
-														<ux:ObjectPageSubSection >
-															<ux:blocks >
-																<Text text="ssss"/>
-															</ux:blocks>
+														<ux:ObjectPageSubSection id="about_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display" type="XML"/>-->
+															<!--</ux:blocks>-->
 														</ux:ObjectPageSubSection>
 													</ux:subSections>
 												</ux:ObjectPageSection>
 												<ux:ObjectPageSection title="{i18n>work}">
 													<ux:subSections>
-														<ux:ObjectPageSubSection >
-															<ux:blocks >
-																<Text text="hhhhhhhhhhh"/>
-															</ux:blocks>
+														<ux:ObjectPageSubSection id="work_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display2" type="XML"/>-->
+															<!--</ux:blocks>-->
 														</ux:ObjectPageSubSection>
 													</ux:subSections>
 												</ux:ObjectPageSection>
