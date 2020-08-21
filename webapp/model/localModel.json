@@ -13,12 +13,23 @@
 		"key": "page3"
 	}],
 	"fixedNavigation": [{
-			"title": "Request",
-			"icon":"sap-icon://create-leave-request",
-			"key":"page4"
-		
+		"title": "Request",
+		"icon": "sap-icon://create-leave-request",
+		"key": "page4"
 
-		}]
+	}],
+	"EmpDetail": [{
+		"empName": "SHIVARAJ",
+		"mob": "7353912305",
+		"mailId": "shivaraj@gmail.com",
+		"DOB": "Aug 1, 1990",
+		"Address1": "Mangalore",
+		"Address2": "Karnataka",
+		"pinCode": "574224",
+		"adhar": "102245555542",
+		"pan": "GIA54645"
 
-	
+	}],
+	"switchState" :true
+
 }

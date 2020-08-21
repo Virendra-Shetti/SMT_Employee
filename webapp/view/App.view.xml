@@ -1,5 +1,5 @@
 <mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true"
-	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:card="sap.f.cards" xmlns:f="sap.f">
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:card="sap.f.cards" xmlns:f="sap.f" xmlns:ux="sap.uxap">
 	<!--<Shell id="shell">-->
 	<App id="app">
 		<pages>
@@ -42,10 +42,8 @@
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List items="{birthdayModel>/Employee}">
-														<items>
-															<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
-														</items>
+													<List>
+														<CustomListItem></CustomListItem>
 													</List>
 												</ScrollContainer>
 											</f:content>
@@ -100,14 +98,50 @@
 											</f:content>
 										</f:Card>
 									</ScrollContainer>
-									<ScrollContainer id="page2" horizontal="false" vertical="true" height="100%">
+									<Page id="page2" showHeader="false" enableScrolling="true">
 										<VBox width="100%">
 											<Image class="coverImage" src="https://cdn.pixabay.com/photo/2017/03/05/21/43/planet-2120004_960_720.jpg" width="100%" height="12rem"
 												mode="Image"/>
-											<Avatar class="profileImage" src="https://cdn.pixabay.com/photo/2020/07/21/05/50/pine-5425201__340.jpg" displaySize="XL"
-												badgeIcon="sap-icon://camera" badgeTooltip="Take Photo"/>
+											<Avatar class="profileImage" src="{localModel>/profilePic}" displaySize="XL"
+												press="onChangeProfile" badgeIcon="sap-icon://camera" badgeTooltip="Take Photo"/>
 										</VBox>
-									</ScrollContainer>
+										<Toolbar>
+											<ToolbarSpacer/>
+											<Switch  state="{localModel>/switchState}" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
+										</Toolbar>
+										<ux:ObjectPageLayout useIconTabBar="true">
+											<ux:headerTitle >
+												<ux:ObjectPageDynamicHeaderTitle>
+													<ux:heading>
+														<Title text="SHIVARAJ"/>
+													</ux:heading>
+													<ux:expandedContent>
+														<Text text="Senior UI Developer"/>
+													</ux:expandedContent>
+												</ux:ObjectPageDynamicHeaderTitle>
+											</ux:headerTitle>
+											<ux:sections>
+												<ux:ObjectPageSection title="{i18n>about}">
+													<ux:subSections>
+														<ux:ObjectPageSubSection id="about_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display" type="XML"/>-->
+															<!--</ux:blocks>-->
+														</ux:ObjectPageSubSection>
+													</ux:subSections>
+												</ux:ObjectPageSection>
+												<ux:ObjectPageSection title="{i18n>work}">
+													<ux:subSections>
+														<ux:ObjectPageSubSection id="work_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display2" type="XML"/>-->
+															<!--</ux:blocks>-->
+														</ux:ObjectPageSubSection>
+													</ux:subSections>
+												</ux:ObjectPageSection>
+											</ux:sections>
+										</ux:ObjectPageLayout>
+									</Page>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
 										<Text text="This third page"/>
 									</ScrollContainer>
