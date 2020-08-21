@@ -9,6 +9,7 @@ sap.ui.define([
 
 			this._showFormFragment("Display");
 			this._showFormFragment("Display2");
+sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
 		},
 		onAfterRendering: function () {
 			// $(".about_object_page_sub .work_frag").hide();
@@ -175,8 +176,167 @@ sap.ui.define([
 			var oState = oEvent.getParameter("state");
 
 			// Set the right form type
-			this._showFormFragment(!oState ? "Change" : "Display");
-			this._showFormFragment(!oState ? "Change2" : "Display2");
+			// this._showFormFragment(!oState ? "Change" : "Display");
+			// this._showFormFragment(!oState ? "Change2" : "Display2");
+
+			//Binding change form
+
+			if (oState) {
+				var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+					empPayload = oLocalModel.getProperty("/EmpDetail/0"),
+					// that = this,
+					oFormContent = sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").getContent(),
+					oVboxItems = oFormContent[11].getItems(),
+					oName = oFormContent[2],
+					oMob = oFormContent[4],
+					oEmailId = oFormContent[6],
+					oDob = oFormContent[8],
+					oAddress1 = oVboxItems[0],
+					oAddress2 = oVboxItems[1],
+					oPin = oFormContent[13],
+					oAdhar = oFormContent[15],
+					oPan = oFormContent[17],
+
+					nameRegx = /^[A-Za-z]+$/g,
+					phoneRegx = /[6-9]{1}\d{9}/g,
+					emailRegx = /\w+\@\w+\.(com|in|org|net)$/g,
+					numberRegx = /^\d+$/g,
+
+					_forConditionTrue = function () {
+						oName.setValueState("None");
+						oMob.setValueState("None");
+						oEmailId.setValueState("None");
+						oDob.setValueState("None");
+						oAddress1.setValueState("None");
+						oAddress2.setValueState("None");
+						oPin.setValueState("None");
+						oAdhar.setValueState("None");
+						oPan.setValueState("None");
+					};
+
+				//set the date picker for DOB
+				if (!this.setDatePicker) {
+					this.setDatePicker = 1;
+					var curDate = new Date(),
+						yMin = curDate.getFullYear() - 70,
+						yMax = curDate.getFullYear() - 18;
+
+					var maxDate = new Date(yMax, 11, 31),
+						minDate = new Date(yMin, 0, 1);
+
+					oDob.setMaxDate(maxDate);
+					oDob.setMinDate(minDate);
+				}
+
+				if (!empPayload.empName) {
+					_forConditionTrue();
+					oName.setValueState("Error").focus();
+					oName.setValueStateText("Enter Name");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!nameRegx.test(empPayload.empName)) {
+					_forConditionTrue();
+					oName.setValueState("Error").focus();
+					oName.setValueStateText("Invalid Name");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.mob) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Enter Phone Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!phoneRegx.test(empPayload.mob)) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Contact Number Should Start With Either 6 or 7 or 8 or 9");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.mob.length < 10) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Please Insert 10 Digit Mobile Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.mailId) {
+					_forConditionTrue();
+					oEmailId.setValueState("Error").focus();
+					oEmailId.setValueStateText("Enter Email ID");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!emailRegx.test(empPayload.mailId)) {
+					_forConditionTrue();
+					oEmailId.setValueState("Error").focus();
+					oEmailId.setValueStateText("Invalid Email ID");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.DOB) {
+					_forConditionTrue();
+					oDob.setValueState("Error").focus();
+					oDob.setValueStateText("Enter Birth Date");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.DOB) {
+					_forConditionTrue();
+					oDob.setValueState("Error").focus();
+					oDob.setValueStateText("Enter Birth Date");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.Address1) {
+					_forConditionTrue();
+					oAddress1.setValueState("Error").focus();
+					oAddress1.setValueStateText("Enter Address");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.Address2) {
+					_forConditionTrue();
+					oAddress2.setValueState("Error").focus();
+					oAddress2.setValueStateText("Enter Address");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.pinCode) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Enter Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				}else if (!numberRegx.test(empPayload.pinCode)) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Invalid Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.pinCode.length < 6) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Enter 6 Digit Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.adhar) {
+					_forConditionTrue();
+					oAdhar.setValueState("Error").focus();
+					oAdhar.setValueStateText("Enter Adhar Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.adhar.length < 12) {
+					_forConditionTrue();
+					oAdhar.setValueState("Error").focus();
+					oAdhar.setValueStateText("Enter 12 Digit Adhar Number");
+					oLocalModel.setProperty("/switchState", false);
+				}
+				// else if (!numberRegx.test(empPayload.adhar)) {
+				// 	_forConditionTrue();
+				// 	oAdhar.setValueState("Error").focus();
+				// 	oAdhar.setValueStateText("Invalid Adhar Number");
+				// 	oLocalModel.setProperty("/switchState", false);
+				// } 
+				else if (!empPayload.pan) {
+					_forConditionTrue();
+					oPan.setValueState("Error").focus();
+					oPan.setValueStateText("Enter  PAN Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.pan.length < 8) {
+					_forConditionTrue();
+					oPan.setValueState("Error").focus();
+					oPan.setValueStateText("Enter 8 Digit PAN Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else {
+					_forConditionTrue();
+					this._showFormFragment("Display");
+					this._showFormFragment("Display2");
+
+				}
+
+			} else {
+				this._showFormFragment("Change");
+				this._showFormFragment("Change2");
+				sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").bindElement("localModel>/EmpDetail/0");
+			}
 		},
 		onPress: function (oEvent) {
 			debugger;
