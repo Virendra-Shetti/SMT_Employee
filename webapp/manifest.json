@@ -76,6 +76,10 @@
 				"quicklinksData":{
 					"type": "sap.ui.model.json.JSONModel",
 				"uri":"model/quicklinks.json"
+			},
+				"newhiresData":{
+					"type": "sap.ui.model.json.JSONModel",
+				"uri":"model/newhires.json"
 			}
 			
 		},

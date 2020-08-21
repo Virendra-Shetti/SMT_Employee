@@ -38,7 +38,7 @@
 									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
 										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
-												<card:Header title="{i18n>Birthday}"/>
+												<card:Header title="{i18n>Birthday}" />
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
@@ -55,7 +55,13 @@
 												<card:Header title="{i18n>NewHires}"/>
 											</f:header>
 											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true"></ScrollContainer>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+															<List items="{newhiresData>/Employee}">
+														<items>
+															<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}" number="{newhiresData>joinDate}"></ObjectListItem>
+														</items>
+													</List>
+												</ScrollContainer>
 											</f:content>
 										</f:Card>
 										<f:Card class="sapUiMediumMargin" width="500px">

@@ -8,11 +8,19 @@ sap.ui.define([
 		onInit: function () {
 
 		},
+			
 		onItemSelect: function (oEvent) {
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 		},
+	handleChange: function () {
+			debugger;
+					var oFragId = this.createId("newsid");
+			var currentDate = new Date();
+			// this.getView().byId("datePick").getValue();
+		sap.ui.core.Fragment.byId(oFragId, "datePick").setMinDate(currentDate);
 
+		},
 		onPress: function (oEvent) {
 			debugger;
 			var oButton = oEvent.getSource();
@@ -47,9 +55,9 @@ sap.ui.define([
 			debugger;
 			this._onAddFrag().open();
 		},
-		onCancel: function () {
-			this._onAddFrag().close();
-		},
+		// onCancel: function () {
+		// 	this._onAddFrag().close();
+		// },
 		arr: [],
 		onPost: function () {
 			debugger;
@@ -58,7 +66,7 @@ sap.ui.define([
 
 			var activityName = sap.ui.core.Fragment.byId(oFragId, "name").getValue();
 			var newsDescription = sap.ui.core.Fragment.byId(oFragId, "desc").getValue();
-			var startDate = sap.ui.core.Fragment.byId(oFragId, "startdate").getValue();
+			var startDate = sap.ui.core.Fragment.byId(oFragId, "datePick").getValue();
 
 			var time = sap.ui.core.Fragment.byId(oFragId, "time").getValue();
 
@@ -80,9 +88,10 @@ sap.ui.define([
 
 				sap.ui.core.Fragment.byId(oFragId, "name").setValue("");
 				sap.ui.core.Fragment.byId(oFragId, "desc").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "startdate").setValue("");
+				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
 
 				sap.ui.core.Fragment.byId(oFragId, "time").setValue("");
+					this._onAddFrag().close();
 			}
 		},
 		onItemClose: function (oEvent) {
@@ -90,14 +99,14 @@ sap.ui.define([
 				oList = oItem.getParent();
 
 			oList.removeItem(oItem);
-			sap.m.MessageToast.show("Item closed: " + oItem.getTitle());
+			// sap.m.MessageToast.show("Item closed: " + oItem.getTitle());
 		},
 		onItemNotifyClose: function (oEvent) {
 			var oItem = oEvent.getSource(),
 				oList = oItem.getParent();
 
 			oList.removeItem(oItem);
-			sap.m.MessageToast.show("Item closed ");
+			// sap.m.MessageToast.show("Item closed ");
 		}
 
 	});
