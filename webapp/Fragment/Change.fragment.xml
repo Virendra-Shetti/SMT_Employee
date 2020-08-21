@@ -6,25 +6,25 @@
 			<f:content>
 				<core:Title/>
 				<Label text="{i18n>name}"/>
-				<Input value="SHIVARAJ" class="sapUiMediumMarginBottom"/>
+				<Input value="{localModel>empName}" class="sapUiMediumMarginBottom" maxLength="30"/>
 				<Label text="{i18n>mob}"/>
-				<Input value="7353912305" class="sapUiMediumMarginBottom"/>
+				<Input value="{localModel>mob}" class="sapUiMediumMarginBottom" maxLength="10"/>
 				<Label text="{i18n>mail}"/>
-				<Input value="shivaraj@gmail.com" class="sapUiMediumMarginBottom"/>
+				<Input value="{localModel>mailId}" class="sapUiMediumMarginBottom" maxLength="20"/>
 				<Label text="{i18n>DOB}"/>
-				<DatePicker value="01 Jan 1990"/>
+				<DatePicker value="{localModel>DOB}"/>
 				<core:Title/>
 				<Label text="{i18n>address}"/>
 				<VBox>
-					<Input value="Mangalore"/>
-					<Input value="Karnataka"/>
+					<Input value="{localModel>Address1}" maxLength="30"/>
+					<Input value="{localModel>Address2}" maxLength="30"/>
 				</VBox>
 				<Label text="{i18n>pincode}"/>
-				<Input value="574224" class="sapUiMediumMarginBottom"/>
+				<Input value="{localModel>pinCode}" class="sapUiMediumMarginBottom" maxLength="6"/>
 				<Label text="{i18n>adhar}"/>
-				<Input value="10224555554" class="sapUiMediumMarginBottom"/>
+				<Input value="{localModel>adhar}" class="sapUiMediumMarginBottom" maxLength="12"/>
 				<Label text="{i18n>pan}"/>
-				<Input value="GIA5464"/>
+				<Input value="{localModel>pan}" maxLength="8"/>
 			</f:content>
 		</f:SimpleForm>
 		<!--<f:SimpleForm class="work_frag" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"-->

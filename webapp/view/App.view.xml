@@ -94,7 +94,7 @@
 										</VBox>
 										<Toolbar>
 											<ToolbarSpacer/>
-											<Switch state="true" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
+											<Switch  state="{localModel>/switchState}" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
 										</Toolbar>
 										<ux:ObjectPageLayout useIconTabBar="true">
 											<ux:headerTitle >
