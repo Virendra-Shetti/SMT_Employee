@@ -27,7 +27,7 @@
 								</tnt:NavigationList>
 								<tnt:fixedItem>
 									<tnt:NavigationList items="{localModel>/fixedNavigation}">
-										<tnt:NavigationListItem  text="{localModel>title}" icon="{localModel>icon}"  key="{localModel>key}"/>
+										<tnt:NavigationListItem text="{localModel>title}" icon="{localModel>icon}" key="{localModel>key}"/>
 									</tnt:NavigationList>
 								</tnt:fixedItem>
 							</tnt:SideNavigation>
@@ -38,12 +38,14 @@
 									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
 										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
-												<card:Header title="{i18n>Birthday}" />
+												<card:Header title="{i18n>Birthday}"/>
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List>
-														<CustomListItem></CustomListItem>
+													<List items="{birthdayModel>/Employee}">
+														<items>
+															<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
+														</items>
 													</List>
 												</ScrollContainer>
 											</f:content>
@@ -54,9 +56,10 @@
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-															<List items="{newhiresData>/Employee}">
+													<List items="{newhiresData>/Employee}">
 														<items>
-															<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}" number="{newhiresData>joinDate}"></ObjectListItem>
+															<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}"
+																number="{newhiresData>joinDate}"></ObjectListItem>
 														</items>
 													</List>
 												</ScrollContainer>
@@ -65,10 +68,8 @@
 										<f:Card class="sapUiMediumMargin" width="500px">
 											<f:header>
 												<card:Header title="{i18n>NewsFeed}"/>
-											
-													<ToolbarSpacer></ToolbarSpacer>
-													<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
-											
+												<ToolbarSpacer></ToolbarSpacer>
+												<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
@@ -91,7 +92,6 @@
 													<List items="{quicklinksData>/data}">
 														<items>
 															<FeedListItem icon="{quicklinksData>icon}" info="{quicklinksData>Author}" timestamp="{quicklinksData>Date}" text="{quicklinksData>Text}"/>
-														
 														</items>
 													</List>
 												</ScrollContainer>
@@ -102,12 +102,12 @@
 										<VBox width="100%">
 											<Image class="coverImage" src="https://cdn.pixabay.com/photo/2017/03/05/21/43/planet-2120004_960_720.jpg" width="100%" height="12rem"
 												mode="Image"/>
-											<Avatar class="profileImage" src="{localModel>/profilePic}" displaySize="XL"
-												press="onChangeProfile" badgeIcon="sap-icon://camera" badgeTooltip="Take Photo"/>
+											<Avatar class="profileImage" src="{localModel>/profilePic}" displaySize="XL" press="onChangeProfile" badgeIcon="sap-icon://camera"
+												badgeTooltip="Take Photo"/>
 										</VBox>
 										<Toolbar>
 											<ToolbarSpacer/>
-											<Switch  state="{localModel>/switchState}" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
+											<Switch state="{localModel>/switchState}" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
 										</Toolbar>
 										<ux:ObjectPageLayout useIconTabBar="true">
 											<ux:headerTitle >
