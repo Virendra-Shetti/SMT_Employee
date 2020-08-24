@@ -36,19 +36,19 @@
 							<NavContainer id="pageContainer">
 								<pages>
 									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
-										<f:Card class="sapUiMediumMargin" width="500px">
+										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
 												<card:Header title="{i18n>Birthday}" />
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List>
-														<CustomListItem></CustomListItem>
+													<List items="{birthdayModel>/Employee}">
+														<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
 													</List>
 												</ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="500px">
+										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
 												<card:Header title="{i18n>NewHires}"/>
 											</f:header>
@@ -62,7 +62,7 @@
 												</ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="500px">
+										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
 												<card:Header title="{i18n>NewsFeed}"/>
 											
@@ -82,7 +82,7 @@
 												</ScrollContainer>
 											</f:content>
 										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="500px">
+										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
 												<card:Header title="{i18n>QuickLinks}"/>
 											</f:header>
@@ -113,7 +113,7 @@
 											<ux:headerTitle >
 												<ux:ObjectPageDynamicHeaderTitle>
 													<ux:heading>
-														<Title text="SHIVARAJ"/>
+														<Title text="{localModel>/EmpDetail/0/empName}"/>
 													</ux:heading>
 													<ux:expandedContent>
 														<Text text="Senior UI Developer"/>

@@ -7,37 +7,52 @@ sap.ui.define([
 	return Controller.extend("SE.SMT_Employee.controller.App", {
 		onInit: function () {
 
-
 			this._showFormFragment("Display");
 			this._showFormFragment("Display2");
-sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
+
+			var birthDate = new Date("01/25/1990");
+			this.getOwnerComponent().getModel("localModel").setProperty("/EmpDetail/0/DOB", birthDate);
+			sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
 		},
 		onAfterRendering: function () {
+			debugger;
 			// $(".about_object_page_sub .work_frag").hide();
 			// $("#about_object_page_sub #work_frag").hide();
 			// $("#work_object_page_sub .about_frag").hide();
 
-			var oModel = new sap.ui.model.json.JSONModel();
-			this.getOwnerComponent().setModel(oModel, "newsData");
-
-
 		},
-			
+
 		onItemSelect: function (oEvent) {
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 		},
 
-	handleChange: function () {
-			debugger;
-					var oFragId = this.createId("newsid");
+		handleChange: function () {
+
+			var oFragId = this.createId("newsid");
 			var currentDate = new Date();
 			// this.getView().byId("datePick").getValue();
-		sap.ui.core.Fragment.byId(oFragId, "datePick").setMinDate(currentDate);
-  },
-		onChangeProfile: function () {
+			sap.ui.core.Fragment.byId(oFragId, "datePick").setMinDate(currentDate);
+		},
+		loadCanvas: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel");
+			var imgSrc = oLocalModel.getProperty("/galleryPic") || oLocalModel.getProperty("/profilePic") || oLocalModel.getProperty(
+				"/addProfilePic");
+			// imagVal = `<img src=${imgSrc} >`,
+			var imageObj = document.getElementById("show_profile_pic");
+			imageObj.src = imgSrc;
+
+			var snapShotCanvas = document.getElementById("profile_snap"),
+				oContext = snapShotCanvas.getContext("2d");
+			oContext.drawImage(imageObj, 0, 0, snapShotCanvas.width, snapShotCanvas.height);
+			$('#show_profile_pic').hide();
+		},
+		onChangeProfile: function (oEvent) {
 			debugger;
-			var that = this;
+			var that = this,
+				oLocalModel = this.getOwnerComponent().getModel("localModel");
+				
+			oLocalModel.setProperty("/galleryPic", "");
 			if (!this.fixedDialog) {
 				this.fixedDialog = new sap.m.Dialog({
 					title: "Change Profile",
@@ -45,94 +60,235 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 					contentWidth: "47%",
 					contentHeight: "77%",
 					resizable: true,
-					buttons: [new sap.m.Button({
-							text: "Take Capture",
+					buttons: [
+						new sap.m.Button({
+							text: "{i18n>back}",
+							visible: false,
 							press: function () {
-								debugger;
+
+								//keep it in other function (take picture also)
+
+								that._setImage();
+
+								that.fixedDialog.getContent()[0].setVisible(false);
+								$('#camera_play').hide();
+
+								that.fixedDialog.getContent()[2].setVisible(true);
+
+								var oButtons = that.fixedDialog.getButtons();
+								oButtons[0].setVisible(false);
+								oButtons[1].setVisible(false);
+								oButtons[2].setVisible(true);
+								oButtons[3].setVisible(true);
+								oButtons[4].setVisible(true);
+								oButtons[5].setVisible(true);
+
+							}
+						}),
+						new sap.m.Button({
+							text: "{i18n>takePic}",
+							visible: false,
+							press: function () {
 
 								//		that._setImage();
-								var oVbox = that.fixedDialog.getContent()[1],
-									items = oVbox.getItems(),
-									// snapID = "pic" + items.length,
-									imagVal = document.getElementById("camera_play"),
-									oCanvas = new sap.ui.core.HTML({
-										content: "<canvas id='profile_snap' width='320px' height='320px' style='2px solid red'/> "
-									});
-								oVbox.addItem(oCanvas);
-								oVbox.addStyleClass("sapUiLargeMarginTop");
+								// var oVbox = that.fixedDialog.getContent()[1],
+								// items = oVbox.getItems(),
+								//	// snapID = "pic" + items.length,
+								// imagVal = document.getElementById("camera_play"),
+								// oCanvas = new sap.ui.core.HTML({
+								// 	content: "<canvas id='profile_snap' width='320px' height='320px' style='2px solid red'/> "
+								// });
+								// oVbox.addItem(oCanvas);
+								// oVbox.addStyleClass("sapUiLargeMarginTop");
 
-								oCanvas.addEventDelegate({
-									onAfterRendering: function () {
-										var snapShotCanvas = document.getElementById("profile_snap"),
-											oContext = snapShotCanvas.getContext("2d");
-										oContext.drawImage(imagVal, 0, 0, snapShotCanvas.width, snapShotCanvas.height);
+								// oCanvas.addEventDelegate({
+								// 	onAfterRendering: function () {
+								// 		var snapShotCanvas = document.getElementById("profile_snap"),
+								// 			oContext = snapShotCanvas.getContext("2d");
+								// 		oContext.drawImage(imagVal, 0, 0, snapShotCanvas.width, snapShotCanvas.height);
 
-										debugger;
-										$('#camera_play').hide();
-										var oButtons = that.fixedDialog.getButtons();
-										oButtons[0].setVisible(false);
-										oButtons[1].setVisible(true);
-										oButtons[2].setVisible(true);
+								// 		$('#camera_play').hide();
+								// 		var oButtons = that.fixedDialog.getButtons();
+								// 		oButtons[0].setVisible(false);
+								// 		oButtons[1].setVisible(true);
+								// 		oButtons[2].setVisible(true);
 
-										//		that._setImage();
+								// 		//		that._setImage();
 
-									}
-								});
+								// 	}
+								// });
+								oLocalModel.setProperty("/galleryPic", " ");
+
+								var imagVal = document.getElementById("camera_play");
+
+								var snapShotCanvas = document.getElementById("profile_snap"),
+									oContext = snapShotCanvas.getContext("2d");
+								oContext.drawImage(imagVal, 0, 0, snapShotCanvas.width, snapShotCanvas.height);
+
+								//keep it in other function (back also)
+								//	that._setImage();
+								that.fixedDialog.getContent()[0].setVisible(false);
+
+								that.fixedDialog.getContent()[2].setVisible(true);
+
+								var oButtons = that.fixedDialog.getButtons();
+								oButtons[0].setVisible(false);
+								oButtons[1].setVisible(false);
+								oButtons[2].setVisible(true);
+								oButtons[3].setVisible(true);
+								oButtons[4].setVisible(true);
+								oButtons[5].setVisible(true);
 
 							}
 						}), new sap.m.Button({
-							text: "Camera",
-							visible: false,
-							press: function () {
-								that._setImage();
-								that.onChangeProfile();
+							text: "{i18n>removePhoto}",
+							visible: true,
+							press: function () {debugger;
+								oLocalModel.setProperty("/profilePic", "");
+								oLocalModel.setProperty("/galleryPic", "");
+								that.fixedDialog.close();
 							}
 						}),
 						new sap.m.Button({
-							text: "Upload",
-							visible: false,
+							text: "{i18n>Camera}",
+							visible: true,
+							press: function () {
+								//	that._setImage();
+								//	that.onChangeProfile();
+								that.fixedDialog.getContent()[0].setVisible(true);
+								$('#camera_play').show();
+
+								that.fixedDialog.getContent()[2].setVisible(false);
+
+								var oButtons = that.fixedDialog.getButtons();
+								oButtons[0].setVisible(true);
+								oButtons[1].setVisible(true);
+								oButtons[2].setVisible(false);
+								oButtons[3].setVisible(false);
+								oButtons[4].setVisible(false);
+								oButtons[5].setVisible(false);
+
+								//To Start the Camera streaming
+								var handleSuccess = function (stream) {
+									camera_play.srcObject = stream;
+								};
+								navigator.mediaDevices.getUserMedia({
+									video: true
+								}).then(handleSuccess);
+							}
+						}),
+						new sap.m.Button({
+							text: "{i18n>gallery}",
+							visible: true,
 							press: function () {
 								debugger;
-								var profilePic = document.getElementById("profile_snap").toDataURL();
-								that.getOwnerComponent().getModel("localModel").setProperty("/profilePic", profilePic);
-								that.fixedDialog.close();
+								$('#imgupload').trigger('click');
+
+								$('#imgupload').on('input', function () {
+									debugger;
+									var oPromise = new Promise(function (resolve) {
+										var $i = $('#imgupload'), // Put file input ID here
+											input = $i[0], // Getting the element from jQuery
+
+											file = input.files[0], // The file
+											fr = new FileReader(); // FileReader instance
+										fr.onload = function () {
+											// Do stuff on onload, use fr.result for contents of file
+											//	$('#file-content').append($('<div/>').html(fr.result))
+											resolve(fr);
+
+										};
+										//fr.readAsText( file );
+										fr.readAsDataURL(file);
+									});
+
+									oPromise.then(function (fr) {
+										debugger;
+
+										oLocalModel.setProperty("/galleryPic", fr.result);
+										that.loadCanvas();
+									});
+
+								});
+								// that._setImage();
+								// that.onChangeProfile();
 							}
 						}),
 						new sap.m.Button({
-							text: "Cancel",
+							text: "{i18n>Upload}",
+							visible: true,
+							press: function () {
+
+								var profilePic = document.getElementById("profile_snap").toDataURL();
+								oLocalModel.setProperty("/profilePic", profilePic);
+								oLocalModel.setProperty("/galleryPic", "");
+								that.fixedDialog.close();
+							}
+						}),
+
+						new sap.m.Button({
+							text: "{i18n>Cancel}",
 							press: function () {
 								that.fixedDialog.close();
 							}
 						})
+
 					],
 					content: [new sap.ui.core.HTML({
+							visible: false,
 							content: "<video id='camera_play' autoplay />"
 						}),
+						new sap.ui.core.HTML({
+							visible: true,
+							content: "<img id='show_profile_pic'>"
+						}),
 						new sap.m.VBox({
+							visible: true,
+							alignItems: "Center",
+							items: new sap.ui.core.HTML({
+								content: "<canvas id='profile_snap' width='320px' height='320px' style='2px solid red'/> "
+							}).addEventDelegate({
+								onAfterRendering: function () {
+									debugger;
 
-							alignItems: "Center"
+									var onCamera = document.getElementById("camera_play");
+									if (onCamera) {
+										if (onCamera.style.display !== "none") {
+											$('#camera_play').hide();
+											that._setImage();
+											return;
+										}
+
+									}
+									that.loadCanvas();
+									// $('#camera_play').hide();
+									// var oButtons = that.fixedDialog.getButtons();
+									// oButtons[0].setVisible(false);
+									// oButtons[1].setVisible(true);
+									// oButtons[2].setVisible(true);
+
+								}
+							})
+						}).addStyleClass("sapUiLargeMarginTop"),
+
+						new sap.ui.core.HTML({
+							content: "<input type='file' id='imgupload' style='display:none'/> "
 						})
-					],
+
+					]
 
 				});
 				this.getView().addDependent(this.fixedDialog);
-				this.fixedDialog.attachBeforeClose(this._setImage, this);
-				this.fixedDialog.attachAfterOpen(this._onIntialdialogSetUp, this);
+				//	this.fixedDialog.attachBeforeClose(this._setImage, this);
+				//	this.fixedDialog.attachAfterOpen(this.loadCanvas(), this);
 			}
 
 			this.fixedDialog.open();
 
-			//To Start the Camera streaming
-			var handleSuccess = function (stream) {
-				camera_play.srcObject = stream;
-			};
-			navigator.mediaDevices.getUserMedia({
-				video: true
-			}).then(handleSuccess);
-
 		},
 		_setImage: function () {
 			//	$('#camera_play').show();
+
 			// To stop the camera streaming
 			var stream = camera_play.srcObject;
 			var tracks = stream.getTracks();
@@ -142,14 +298,14 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			});
 			camera_play.srcObject = null;
 
-			$('#camera_play').show();
-			this.fixedDialog.getContent()[1].removeAllItems();
-			this.fixedDialog.getContent()[1].removeStyleClass("sapUiLargeMarginTop");
+			// $('#camera_play').show();
+			// this.fixedDialog.getContent()[1].removeAllItems();
+			// this.fixedDialog.getContent()[1].removeStyleClass("sapUiLargeMarginTop");
 
-			var oButtons = this.fixedDialog.getButtons();
-			oButtons[0].setVisible(true);
-			oButtons[1].setVisible(false);
-			oButtons[2].setVisible(false);
+			// var oButtons = this.fixedDialog.getButtons();
+			// oButtons[0].setVisible(true);
+			// oButtons[1].setVisible(false);
+			// oButtons[2].setVisible(false);
 
 		},
 		_formFragments: {},
@@ -183,7 +339,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 
 		},
 		editOrSave: function (oEvent) {
-			debugger;
+
 			var oState = oEvent.getParameter("state");
 
 			// Set the right form type
@@ -211,7 +367,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 					nameRegx = /^[A-Za-z]+$/g,
 					phoneRegx = /[6-9]{1}\d{9}/g,
 					emailRegx = /\w+\@\w+\.(com|in|org|net)$/g,
-					numberRegx = /^\d+$/g,
+					numberRegx = /^\d+$/,
 
 					_forConditionTrue = function () {
 						oName.setValueState("None");
@@ -299,7 +455,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 					oPin.setValueState("Error").focus();
 					oPin.setValueStateText("Enter Pin Code");
 					oLocalModel.setProperty("/switchState", false);
-				}else if (!numberRegx.test(empPayload.pinCode)) {
+				} else if (!numberRegx.test(empPayload.pinCode)) {
 					_forConditionTrue();
 					oPin.setValueState("Error").focus();
 					oPin.setValueStateText("Invalid Pin Code");
@@ -316,17 +472,16 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 					oLocalModel.setProperty("/switchState", false);
 				} else if (empPayload.adhar.length < 12) {
 					_forConditionTrue();
+
 					oAdhar.setValueState("Error").focus();
 					oAdhar.setValueStateText("Enter 12 Digit Adhar Number");
 					oLocalModel.setProperty("/switchState", false);
-				}
-				// else if (!numberRegx.test(empPayload.adhar)) {
-				// 	_forConditionTrue();
-				// 	oAdhar.setValueState("Error").focus();
-				// 	oAdhar.setValueStateText("Invalid Adhar Number");
-				// 	oLocalModel.setProperty("/switchState", false);
-				// } 
-				else if (!empPayload.pan) {
+				} else if (!numberRegx.test(empPayload.adhar)) {
+					_forConditionTrue();
+					oAdhar.setValueState("Error").focus();
+					oAdhar.setValueStateText("Invalid Adhar Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.pan) {
 					_forConditionTrue();
 					oPan.setValueState("Error").focus();
 					oPan.setValueStateText("Enter  PAN Number");
@@ -338,6 +493,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 					oLocalModel.setProperty("/switchState", false);
 				} else {
 					_forConditionTrue();
+
 					this._showFormFragment("Display");
 					this._showFormFragment("Display2");
 
@@ -351,7 +507,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 
 		},
 		onPress: function (oEvent) {
-			debugger;
+
 			var oButton = oEvent.getSource();
 
 			if (!this._oPopover) {
@@ -381,7 +537,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			return this.onAddFrag;
 		},
 		onAdd: function () {
-			debugger;
+
 			this._onAddFrag().open();
 		},
 		// onCancel: function () {
@@ -389,7 +545,6 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 		// },
 		arr: [],
 		onPost: function () {
-			debugger;
 
 			var oFragId = this.createId("newsid");
 
@@ -420,7 +575,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
 
 				sap.ui.core.Fragment.byId(oFragId, "time").setValue("");
-					this._onAddFrag().close();
+				this._onAddFrag().close();
 			}
 		},
 		onItemClose: function (oEvent) {
