@@ -12,7 +12,7 @@
 				<Label text="{i18n>mail}"/>
 				<Input value="{localModel>mailId}" class="sapUiMediumMarginBottom" maxLength="20"/>
 				<Label text="{i18n>DOB}"/>
-				<DatePicker value="{localModel>DOB}"/>
+				<DatePicker dateValue="{localModel>DOB}" />
 				<core:Title/>
 				<Label text="{i18n>address}"/>
 				<VBox>
