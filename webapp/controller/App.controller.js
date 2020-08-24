@@ -594,4 +594,446 @@ sap.ui.define([
 		}
 
 	});
+=======
+sap.ui.define([
+	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/Fragment"
+], function (Controller, Fragment) {
+	"use strict";
+
+	return Controller.extend("SE.SMT_Employee.controller.App", {
+		onInit: function () {
+
+
+			this._showFormFragment("Display");
+			this._showFormFragment("Display2");
+sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
+		},
+		onAfterRendering: function () {
+			// $(".about_object_page_sub .work_frag").hide();
+			// $("#about_object_page_sub #work_frag").hide();
+			// $("#work_object_page_sub .about_frag").hide();
+
+		
+
+
+		},
+			
+		onItemSelect: function (oEvent) {
+			var oItem = oEvent.getParameter("item");
+			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
+		},
+
+	handleChange: function () {
+			debugger;
+					var oFragId = this.createId("newsid");
+			var currentDate = new Date();
+			// this.getView().byId("datePick").getValue();
+		sap.ui.core.Fragment.byId(oFragId, "datePick").setMinDate(currentDate);
+  },
+		onChangeProfile: function () {
+			debugger;
+			var that = this;
+			if (!this.fixedDialog) {
+				this.fixedDialog = new sap.m.Dialog({
+					title: "Change Profile",
+					titleAlignment: "Center",
+					contentWidth: "47%",
+					contentHeight: "77%",
+					resizable: true,
+					buttons: [new sap.m.Button({
+							text: "Take Capture",
+							press: function () {
+								debugger;
+
+								//		that._setImage();
+								var oVbox = that.fixedDialog.getContent()[1],
+									items = oVbox.getItems(),
+									// snapID = "pic" + items.length,
+									imagVal = document.getElementById("camera_play"),
+									oCanvas = new sap.ui.core.HTML({
+										content: "<canvas id='profile_snap' width='320px' height='320px' style='2px solid red'/> "
+									});
+								oVbox.addItem(oCanvas);
+								oVbox.addStyleClass("sapUiLargeMarginTop");
+
+								oCanvas.addEventDelegate({
+									onAfterRendering: function () {
+										var snapShotCanvas = document.getElementById("profile_snap"),
+											oContext = snapShotCanvas.getContext("2d");
+										oContext.drawImage(imagVal, 0, 0, snapShotCanvas.width, snapShotCanvas.height);
+
+										debugger;
+										$('#camera_play').hide();
+										var oButtons = that.fixedDialog.getButtons();
+										oButtons[0].setVisible(false);
+										oButtons[1].setVisible(true);
+										oButtons[2].setVisible(true);
+
+										//		that._setImage();
+
+									}
+								});
+
+							}
+						}), new sap.m.Button({
+							text: "Camera",
+							visible: false,
+							press: function () {
+								that._setImage();
+								that.onChangeProfile();
+							}
+						}),
+						new sap.m.Button({
+							text: "Upload",
+							visible: false,
+							press: function () {
+								debugger;
+								var profilePic = document.getElementById("profile_snap").toDataURL();
+								that.getOwnerComponent().getModel("localModel").setProperty("/profilePic", profilePic);
+								that.fixedDialog.close();
+							}
+						}),
+						new sap.m.Button({
+							text: "Cancel",
+							press: function () {
+								that.fixedDialog.close();
+							}
+						})
+					],
+					content: [new sap.ui.core.HTML({
+							content: "<video id='camera_play' autoplay />"
+						}),
+						new sap.m.VBox({
+
+							alignItems: "Center"
+						})
+					]
+
+				});
+				this.getView().addDependent(this.fixedDialog);
+				this.fixedDialog.attachBeforeClose(this._setImage, this);
+				this.fixedDialog.attachAfterOpen(this._onIntialdialogSetUp, this);
+			}
+
+			this.fixedDialog.open();
+
+			//To Start the Camera streaming
+			var handleSuccess = function (stream) {
+				camera_play.srcObject = stream;
+			};
+			navigator.mediaDevices.getUserMedia({
+				video: true
+			}).then(handleSuccess);
+
+		},
+		_setImage: function () {
+			//	$('#camera_play').show();
+			// To stop the camera streaming
+			var stream = camera_play.srcObject;
+			var tracks = stream.getTracks();
+
+			tracks.forEach(function (track) {
+				track.stop();
+			});
+			camera_play.srcObject = null;
+
+			$('#camera_play').show();
+			this.fixedDialog.getContent()[1].removeAllItems();
+			this.fixedDialog.getContent()[1].removeStyleClass("sapUiLargeMarginTop");
+
+			var oButtons = this.fixedDialog.getButtons();
+			oButtons[0].setVisible(true);
+			oButtons[1].setVisible(false);
+			oButtons[2].setVisible(false);
+
+		},
+		_formFragments: {},
+		_showFormFragment: function (sFragmentName) {
+			var oAboutSubPage = this.byId("about_object_page_sub"),
+				// oFormFragmentAbout = this._formFragments["about" + sFragmentName],
+				oWorkSubPage = this.byId("work_object_page_sub"),
+				// oFormFragment = this._formFragments["work" + sFragmentName];
+				oFormFragment = this._formFragments[sFragmentName];
+			if (!oFormFragment) {
+				// oFormFragmentAbout = sap.ui.xmlfragment(this.createId("about" + sFragmentName), "SE.SMT_Employee.Fragment." + sFragmentName);
+				// oFormFragment = sap.ui.xmlfragment(this.createId("work" + sFragmentName), "SE.SMT_Employee.Fragment." + sFragmentName);
+				oFormFragment = sap.ui.xmlfragment(this.createId(sFragmentName), "SE.SMT_Employee.Fragment." + sFragmentName);
+				// this._formFragments["about" + sFragmentName] = oFormFragmentAbout;
+				// this._formFragments["work" + sFragmentName] = oFormFragment;
+				this._formFragments[sFragmentName] = oFormFragment;
+			}
+			debugger
+
+			if ((sFragmentName === "Change") || (sFragmentName === "Display")) {
+				oAboutSubPage.removeAllBlocks();
+				oAboutSubPage.addBlock(oFormFragment);
+			} else {
+				oWorkSubPage.removeAllBlocks();
+				oWorkSubPage.addBlock(oFormFragment);
+
+			}
+
+			// oWorkForm = sap.ui.core.Fragment.byId(this.createId("Display"), "about_display_frag");
+			// oWorkForm.setVisible(false);
+
+		},
+		editOrSave: function (oEvent) {
+			debugger;
+			var oState = oEvent.getParameter("state");
+
+			// Set the right form type
+			// this._showFormFragment(!oState ? "Change" : "Display");
+			// this._showFormFragment(!oState ? "Change2" : "Display2");
+
+			//Binding change form
+
+			if (oState) {
+				var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+					empPayload = oLocalModel.getProperty("/EmpDetail/0"),
+					// that = this,
+					oFormContent = sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").getContent(),
+					oVboxItems = oFormContent[11].getItems(),
+					oName = oFormContent[2],
+					oMob = oFormContent[4],
+					oEmailId = oFormContent[6],
+					oDob = oFormContent[8],
+					oAddress1 = oVboxItems[0],
+					oAddress2 = oVboxItems[1],
+					oPin = oFormContent[13],
+					oAdhar = oFormContent[15],
+					oPan = oFormContent[17],
+
+					nameRegx = /^[A-Za-z]+$/g,
+					phoneRegx = /[6-9]{1}\d{9}/g,
+					emailRegx = /\w+\@\w+\.(com|in|org|net)$/g,
+					numberRegx = /^\d+$/g,
+
+					_forConditionTrue = function () {
+						oName.setValueState("None");
+						oMob.setValueState("None");
+						oEmailId.setValueState("None");
+						oDob.setValueState("None");
+						oAddress1.setValueState("None");
+						oAddress2.setValueState("None");
+						oPin.setValueState("None");
+						oAdhar.setValueState("None");
+						oPan.setValueState("None");
+					};
+
+				//set the date picker for DOB
+				if (!this.setDatePicker) {
+					this.setDatePicker = 1;
+					var curDate = new Date(),
+						yMin = curDate.getFullYear() - 70,
+						yMax = curDate.getFullYear() - 18;
+
+					var maxDate = new Date(yMax, 11, 31),
+						minDate = new Date(yMin, 0, 1);
+
+					oDob.setMaxDate(maxDate);
+					oDob.setMinDate(minDate);
+				}
+
+				if (!empPayload.empName) {
+					_forConditionTrue();
+					oName.setValueState("Error").focus();
+					oName.setValueStateText("Enter Name");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!nameRegx.test(empPayload.empName)) {
+					_forConditionTrue();
+					oName.setValueState("Error").focus();
+					oName.setValueStateText("Invalid Name");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.mob) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Enter Phone Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!phoneRegx.test(empPayload.mob)) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Contact Number Should Start With Either 6 or 7 or 8 or 9");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.mob.length < 10) {
+					_forConditionTrue();
+					oMob.setValueState("Error").focus();
+					oMob.setValueStateText("Please Insert 10 Digit Mobile Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.mailId) {
+					_forConditionTrue();
+					oEmailId.setValueState("Error").focus();
+					oEmailId.setValueStateText("Enter Email ID");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!emailRegx.test(empPayload.mailId)) {
+					_forConditionTrue();
+					oEmailId.setValueState("Error").focus();
+					oEmailId.setValueStateText("Invalid Email ID");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.DOB) {
+					_forConditionTrue();
+					oDob.setValueState("Error").focus();
+					oDob.setValueStateText("Enter Birth Date");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.DOB) {
+					_forConditionTrue();
+					oDob.setValueState("Error").focus();
+					oDob.setValueStateText("Enter Birth Date");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.Address1) {
+					_forConditionTrue();
+					oAddress1.setValueState("Error").focus();
+					oAddress1.setValueStateText("Enter Address");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.Address2) {
+					_forConditionTrue();
+					oAddress2.setValueState("Error").focus();
+					oAddress2.setValueStateText("Enter Address");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.pinCode) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Enter Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				}else if (!numberRegx.test(empPayload.pinCode)) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Invalid Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.pinCode.length < 6) {
+					_forConditionTrue();
+					oPin.setValueState("Error").focus();
+					oPin.setValueStateText("Enter 6 Digit Pin Code");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (!empPayload.adhar) {
+					_forConditionTrue();
+					oAdhar.setValueState("Error").focus();
+					oAdhar.setValueStateText("Enter Adhar Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.adhar.length < 12) {
+					_forConditionTrue();
+					oAdhar.setValueState("Error").focus();
+					oAdhar.setValueStateText("Enter 12 Digit Adhar Number");
+					oLocalModel.setProperty("/switchState", false);
+				}
+				// else if (!numberRegx.test(empPayload.adhar)) {
+				// 	_forConditionTrue();
+				// 	oAdhar.setValueState("Error").focus();
+				// 	oAdhar.setValueStateText("Invalid Adhar Number");
+				// 	oLocalModel.setProperty("/switchState", false);
+				// } 
+				else if (!empPayload.pan) {
+					_forConditionTrue();
+					oPan.setValueState("Error").focus();
+					oPan.setValueStateText("Enter  PAN Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else if (empPayload.pan.length < 8) {
+					_forConditionTrue();
+					oPan.setValueState("Error").focus();
+					oPan.setValueStateText("Enter 8 Digit PAN Number");
+					oLocalModel.setProperty("/switchState", false);
+				} else {
+					_forConditionTrue();
+					this._showFormFragment("Display");
+					this._showFormFragment("Display2");
+
+				}
+
+			} else {
+				this._showFormFragment("Change");
+				this._showFormFragment("Change2");
+				sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").bindElement("localModel>/EmpDetail/0");
+			}
+
+		},
+		onPress: function (oEvent) {
+			debugger;
+			var oButton = oEvent.getSource();
+
+			if (!this._oPopover) {
+				Fragment.load({
+
+					name: "SE.SMT_Employee.Fragment.notifyPop",
+					controller: this
+				}).then(function (oPopover) {
+					this._oPopover = oPopover;
+					this.getView().addDependent(this._oPopover);
+
+					this._oPopover.openBy(oButton);
+				}.bind(this));
+			} else {
+				this._oPopover.openBy(oButton);
+			}
+
+		},
+
+		_onAddFrag: function () {
+			if (!this.onAddFrag) {
+				var oId = this.createId("newsid");
+				this.onAddFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.newsfeed", this);
+				this.getView().addDependent(this.onAddFrag);
+
+			}
+			return this.onAddFrag;
+		},
+		onAdd: function () {
+			debugger;
+			this._onAddFrag().open();
+		},
+		// onCancel: function () {
+		// 	this._onAddFrag().close();
+		// },
+	
+		onPost: function () {
+			debugger;
+
+			var oFragId = this.createId("newsid");
+
+			var activityName = sap.ui.core.Fragment.byId(oFragId, "name").getValue();
+			var newsDescription = sap.ui.core.Fragment.byId(oFragId, "desc").getValue();
+			var startDate = sap.ui.core.Fragment.byId(oFragId, "datePick").getValue();
+
+			var time = sap.ui.core.Fragment.byId(oFragId, "time").getValue();
+
+			if (activityName === "" && newsDescription === "" && startDate === "" && time === "") {
+
+				sap.m.MessageToast.show("Please fill the blank");
+			} else {
+				var obj = {
+
+					Name: activityName,
+					News: newsDescription,
+					sDate: startDate,
+
+					Time: time
+				};
+				var oNewsModel = this.getOwnerComponent().getModel("newsData").getProperty("/data");
+				oNewsModel.push(obj);
+				this.getOwnerComponent().getModel("newsData").setProperty("/data", oNewsModel);
+
+				sap.ui.core.Fragment.byId(oFragId, "name").setValue("");
+				sap.ui.core.Fragment.byId(oFragId, "desc").setValue("");
+				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
+
+				sap.ui.core.Fragment.byId(oFragId, "time").setValue("");
+					this._onAddFrag().close();
+			}
+		},
+		onItemClose: function (oEvent) {
+			var oItem = oEvent.getSource(),
+				oList = oItem.getParent();
+
+			oList.removeItem(oItem);
+			// sap.m.MessageToast.show("Item closed: " + oItem.getTitle());
+		},
+		onItemNotifyClose: function (oEvent) {
+			var oItem = oEvent.getSource(),
+				oList = oItem.getParent();
+
+			oList.removeItem(oItem);
+			// sap.m.MessageToast.show("Item closed ");
+		}
+
+	});
+
 });
