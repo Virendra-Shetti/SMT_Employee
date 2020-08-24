@@ -17,8 +17,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 			// $("#about_object_page_sub #work_frag").hide();
 			// $("#work_object_page_sub .about_frag").hide();
 
-			var oModel = new sap.ui.model.json.JSONModel();
-			this.getOwnerComponent().setModel(oModel, "newsData");
+		
 
 
 		},
@@ -112,7 +111,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 
 							alignItems: "Center"
 						})
-					],
+					]
 
 				});
 				this.getView().addDependent(this.fixedDialog);
@@ -387,7 +386,7 @@ sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindEl
 		// onCancel: function () {
 		// 	this._onAddFrag().close();
 		// },
-		arr: [],
+	
 		onPost: function () {
 			debugger;
 
