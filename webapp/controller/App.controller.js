@@ -6,7 +6,8 @@ sap.ui.define([
 
 	return Controller.extend("SE.SMT_Employee.controller.App", {
 		onInit: function () {
-
+	var oModel = new sap.ui.model.json.JSONModel();
+			this.getOwnerComponent().setModel(oModel, "TimeData");
 			this._showFormFragment("Display");
 			this._showFormFragment("Display2");
 
@@ -21,10 +22,98 @@ sap.ui.define([
 			// $("#work_object_page_sub .about_frag").hide();
 
 		},
+			_onAddTimesheetFrag: function () {
+			if (!this.onAddTimesheetFrag) {
+				var oId = this.createId("timeid");
+				this.onAddTimesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.timesheet", this);
+				this.getView().addDependent(this.onAddTimesheetFrag);
+
+			}
+			return this.onAddTimesheetFrag;
+		},
+			_onAddFilesheetFrag: function () {
+			if (!this.onAddFilesheetFrag) {
+				var oId = this.createId("fileid");
+				this.onAddFilesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.filesheet", this);
+				this.getView().addDependent(this.onAddFilesheetFrag);
+
+			}
+			return this.onAddFilesheetFrag;
+		},
+			_onRequestFrag: function () {
+			if (!this.onRequestFrag) {
+				var oId = this.createId("requestid");
+				this.onRequestFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.request", this);
+				this.getView().addDependent(this.onRequestFrag);
+	// this._onRequestFrag().open();
+			}
+			return this.onRequestFrag;
+		},
+		     onSelect:function(oEvent){
+      	debugger;
+      		var key = oEvent.getParameters().key;
+			if(key === "tab1"){
+					this._onAddTimesheetFrag().open();
+			}
+			else if(key === "tab2"){
+				this._onAddFilesheetFrag().open();
+			
+			}
+      	
+      },
+      	onCancel:function(){
+      			this._onAddTimesheetFrag().close();
+      	},
+      	onCancelfile:function(){
+      			this._onAddFilesheetFrag().close();
+      	},
+      	onLeaveCancel:function(){
+      			this._onRequestFrag().close();
+      	},
+      	onAssetCancel:function(){
+      			this._onRequestFrag().close();
+      	},
+	
+			onSideNavButtonPress: function () {
+			var oToolPage = this.byId("tntToolPage");
+			var bSideExpanded = oToolPage.getSideExpanded();
+
+			this._setToggleButtonTooltip(bSideExpanded);
+
+			oToolPage.setSideExpanded(!oToolPage.getSideExpanded());
+		},
+	 //Callback for Expanding and Collapsing
+		_setToggleButtonTooltip: function (bLarge) {
+			var oToggleButton = this.byId('sideNavigationToggleButton');
+			if (bLarge) {
+				oToggleButton.setTooltip('Large Size Navigation');
+			} else {
+				oToggleButton.setTooltip('Small Size Navigation');
+			}
+		},
 
 		onItemSelect: function (oEvent) {
+			debugger;
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
+		
+		},
+		selectRequest:function(){
+				this._onRequestFrag().open();
+		},
+			arrData: [],
+		onSubmit:function(){
+			debugger;
+				var oFragTimeId = this.createId("timeid");
+					var name = sap.ui.core.Fragment.byId(oFragTimeId, "empname").getValue();
+			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
+			var payload={
+				EmpName:name,
+				Date:date
+			};
+	
+	this.arrData.push(payload);
+		this.getOwnerComponent().getModel( "TimeData").setProperty("/timedata",	this.arrData);
 		},
 
 		handleChange: function () {
@@ -540,9 +629,9 @@ sap.ui.define([
 
 			this._onAddFrag().open();
 		},
-		// onCancel: function () {
-		// 	this._onAddFrag().close();
-		// },
+	onnewsCancel: function () {
+			this._onAddFrag().close();
+		},
 		arr: [],
 		onPost: function () {
 

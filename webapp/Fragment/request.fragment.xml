@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<Dialog>
+		<VBox alignContent="Center" alignItems="Center" justifyContent="Center" class="simpleform">
+			<form:SimpleForm editable="true" width="400px">
+				<IconTabBar class="sapUiResponsiveContentPadding" expandable="true">
+					<items>
+						<IconTabFilter text="Log">
+							<Label/>
+							<Text text="Log"></Text>
+							<Text></Text>
+							<Text></Text>
+							<Text></Text>
+						</IconTabFilter>
+						<IconTabFilter text="LeaveRequest">
+							<Label/>
+							<Label text="{i18n>Label_EmpName}"></Label>
+							<Input id="ename" value="" maxLength="10"></Input>
+							<Label text="{i18n>Label_EmpId}"></Label>
+							<Input id="eid" value="" maxLength="10"></Input>
+							<Label text="{i18n>Label_Date}"></Label>
+							<DatePicker id="dateid"></DatePicker>
+							<Label text="{i18n>Label_Reason}"></Label>
+							<Input id="reason" value="" maxLength="20"></Input>
+							<Label></Label>
+							<Button text="Submit" press="onLeavesubmit" width="40%" ></Button>
+						
+									<Button text="Cancel" press="onLeaveCancel"  width="40%" type="Reject"></Button>
+						</IconTabFilter>
+						<IconTabFilter text="AssetRequest">
+							<Label/>
+							<Label text="{i18n>Label_EmpName}"></Label>
+							<Input id="aname" value="" maxLength="10"></Input>
+							<Label text="{i18n>Label_EmpId}"></Label>
+							<Input id="aid" value="" maxLength="10"></Input>
+							<Label text="{i18n>Label_Date}"></Label>
+							<DatePicker id="adateid"></DatePicker>
+							<Label text="{i18n>Label_AReason}"></Label>
+							<Input id="areason" value="" maxLength="20"></Input>
+							<Label ></Label>
+							<Button text="Submit" press="onAssetsubmit"  width="40%" ></Button>
+						
+									<Button text="Cancel" press="onAssetCancel"  width="40%" type="Reject"></Button>
+						</IconTabFilter>
+					</items>
+				</IconTabBar>
+			</form:SimpleForm>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>
