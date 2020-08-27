@@ -83,6 +83,7 @@
 										</ux:ObjectPageLayout>
 									</Page>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
+
 										<IconTabBar id="iconTabBarId" class="sapUiResponsiveContentPadding" select="onSelect">
 											<items>
 												<IconTabFilter text="TimeSheetUpload" id="timesheetid" key="tab1">
@@ -133,6 +134,7 @@
 												</IconTabFilter>
 											</items>
 										</IconTabBar>
+
 									</ScrollContainer>
 								</pages>
 							</NavContainer>

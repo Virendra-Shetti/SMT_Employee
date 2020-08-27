@@ -6,18 +6,39 @@ sap.ui.define([
 
 	return Controller.extend("SE.SMT_Employee.controller.App", {
 		onInit: function () {
+
+
 	var oModel = new sap.ui.model.json.JSONModel();
 			this.getOwnerComponent().setModel(oModel, "TimeData");
 				this.getOwnerComponent().setModel(oModel, "LeaveData");
+
 			this._showFormFragment("Display");
 			this._showFormFragment("Display2");
 
 			var birthDate = new Date("01/25/1990");
 			this.getOwnerComponent().getModel("localModel").setProperty("/EmpDetail/0/DOB", birthDate);
-			sap.ui.core.Fragment.byId(this.createId("Display"), "about_frag_display").bindElement("localModel>/EmpDetail/0");
+			this._formFragments["Display"].bindElement("localModel>/EmpDetail/0");
+
+		},
+		onExit: function () {
+
+			// for (const x in this._formFragments) {
+			// 	this._formFragments[x].destroy();
+			// }
+
+			this.__proto__._formFragments = {};
+			if (document.getElementById("show_profile_pic")) {
+				document.getElementById("show_profile_pic").remove();
+				document.getElementById("profile_snap").remove();
+				document.getElementById("imgupload").remove();
+			}
+
+			if (document.getElementById("camera_play")) {
+				document.getElementById("camera_play").remove();
+			}
 		},
 		onAfterRendering: function () {
-			debugger;
+
 			// $(".about_object_page_sub .work_frag").hide();
 			// $("#about_object_page_sub #work_frag").hide();
 			// $("#work_object_page_sub .about_frag").hide();
@@ -212,10 +233,11 @@ Change: function () {
 			$('#show_profile_pic').hide();
 		},
 		onChangeProfile: function (oEvent) {
-			debugger;
+
 			var that = this,
 				oLocalModel = this.getOwnerComponent().getModel("localModel");
-				
+			var defalutProfilePic = oLocalModel.getProperty("/addProfilePic");
+
 			oLocalModel.setProperty("/galleryPic", "");
 			if (!this.fixedDialog) {
 				this.fixedDialog = new sap.m.Dialog({
@@ -307,7 +329,8 @@ Change: function () {
 						}), new sap.m.Button({
 							text: "{i18n>removePhoto}",
 							visible: true,
-							press: function () {debugger;
+							press: function () {
+
 								oLocalModel.setProperty("/profilePic", "");
 								oLocalModel.setProperty("/galleryPic", "");
 								that.fixedDialog.close();
@@ -345,11 +368,11 @@ Change: function () {
 							text: "{i18n>gallery}",
 							visible: true,
 							press: function () {
-								debugger;
+
 								$('#imgupload').trigger('click');
 
 								$('#imgupload').on('input', function () {
-									debugger;
+
 									var oPromise = new Promise(function (resolve) {
 										var $i = $('#imgupload'), // Put file input ID here
 											input = $i[0], // Getting the element from jQuery
@@ -367,7 +390,6 @@ Change: function () {
 									});
 
 									oPromise.then(function (fr) {
-										debugger;
 
 										oLocalModel.setProperty("/galleryPic", fr.result);
 										that.loadCanvas();
@@ -404,7 +426,7 @@ Change: function () {
 						}),
 						new sap.ui.core.HTML({
 							visible: true,
-							content: "<img id='show_profile_pic'>"
+							content: `<img id='show_profile_pic' src='${defalutProfilePic}' >`
 						}),
 						new sap.m.VBox({
 							visible: true,
@@ -413,7 +435,6 @@ Change: function () {
 								content: "<canvas id='profile_snap' width='320px' height='320px' style='2px solid red'/> "
 							}).addEventDelegate({
 								onAfterRendering: function () {
-									debugger;
 
 									var onCamera = document.getElementById("camera_play");
 									if (onCamera) {
@@ -487,7 +508,6 @@ Change: function () {
 				// this._formFragments["work" + sFragmentName] = oFormFragment;
 				this._formFragments[sFragmentName] = oFormFragment;
 			}
-			debugger
 
 			if ((sFragmentName === "Change") || (sFragmentName === "Display")) {
 				oAboutSubPage.removeAllBlocks();
@@ -516,7 +536,7 @@ Change: function () {
 				var oLocalModel = this.getOwnerComponent().getModel("localModel"),
 					empPayload = oLocalModel.getProperty("/EmpDetail/0"),
 					// that = this,
-					oFormContent = sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").getContent(),
+					oFormContent = this._formFragments["Change"].getContent(),
 					oVboxItems = oFormContent[11].getItems(),
 					oName = oFormContent[2],
 					oMob = oFormContent[4],
@@ -666,7 +686,7 @@ Change: function () {
 			} else {
 				this._showFormFragment("Change");
 				this._showFormFragment("Change2");
-				sap.ui.core.Fragment.byId(this.createId("Change"), "about_frag").bindElement("localModel>/EmpDetail/0");
+				this._formFragments["Change"].bindElement("localModel>/EmpDetail/0");
 			}
 
 		},
@@ -758,6 +778,5 @@ Change: function () {
 		}
 
 	});
-
 
 });
