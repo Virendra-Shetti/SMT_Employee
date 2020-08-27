@@ -1,0 +1,35 @@
+{
+	"Employee": [{
+		"EmpId": "Emp01",
+		"Department": "UI5 developer",
+
+		"joinDate": "12-09-2018",
+
+		"empName": "Sham"
+
+	}, {
+		"EmpId": "Emp02",
+		"Department": "UI5 developer",
+		"Email": "john@signiwis.com",
+		"joinDate": "17-01-2018",
+
+		"empName": "John"
+
+	}, {
+		"EmpId": "Emp03",
+		"Department": "ABAP developer",
+
+		"joinDate": "29-04-2019",
+
+		"empName": "Adam"
+
+	}, {
+		"EmpId": "Emp04",
+		"Department": "ABAP developer",
+
+		"joinDate": "08-08-2018",
+
+		"empName": "Nova"
+
+	}]
+}

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified">
+	<Dialog title="AddNewsFeed">
+		<form:SimpleForm>
+			<Label text="ActivityName"/>
+			<Input id="name" maxLength="10"></Input>
+			<Label text="NewsDescription"/>
+			<TextArea id="desc" maxLength="50"/>
+			<Label text="Date"></Label>
+			<DatePicker id="datePick" change="handleChange" validationError="valError"></DatePicker>
+			
+			<Label text="Time"></Label>
+			<TimePicker id="time"></TimePicker>
+			<Label></Label>
+			<Button text="Post" press="onPost" type="Accept"></Button>
+			<!--<Button text="Close" press="onCancel" width="100px" type="Reject"></Button>-->
+		</form:SimpleForm>
+	</Dialog>
+</core:FragmentDefinition>

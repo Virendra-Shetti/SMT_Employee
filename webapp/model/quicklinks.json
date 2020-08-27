@@ -1,0 +1,27 @@
+{
+	"data": [{
+
+		"Author": "Campus Map",
+
+		"Date": "20-08-20",
+		"icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTiFqz4JMyuF4zPNlNZULvqxt463Zw62XLO3A&usqp=CAU",
+
+		"Text": " <a href =' https://www.minneapolis.edu/about-us/maps-hours-parking'>Maps</a>"
+	}, {
+
+		"Author": "sap",
+
+		"Date": "19-08-20",
+		"icon": "https://images.idgesg.net/images/article/2017/08/8_sap-100733134-large.jpg",
+		"Text": "<a href='http://www.sap.com'>Sap</a>"
+	},
+	 {
+
+		"Author": "signiwis",
+
+		"Date": "18-08-20",
+		"icon":"https://media.glassdoor.com/sqll/1147526/signiwis-technologies-squarelogo-1460532643348.png",
+		"Text": "<a href='http://www.signiwis.com'>Signiwis</a>"
+	}
+	]
+}

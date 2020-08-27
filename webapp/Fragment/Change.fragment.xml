@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
+	<!--<VBox class="sapUiSmallMargin">-->
+		<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+			labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
+			singleContainerFullSize="false">
+			<f:content>
+				<core:Title/>
+				<Label text="{i18n>name}"/>
+				<Input value="{localModel>empName}" class="sapUiMediumMarginBottom" maxLength="30"/>
+				<Label text="{i18n>mob}"/>
+				<Input value="{localModel>mob}" class="sapUiMediumMarginBottom" maxLength="10"/>
+				<Label text="{i18n>mail}"/>
+				<Input value="{localModel>mailId}" class="sapUiMediumMarginBottom" maxLength="20"/>
+				<Label text="{i18n>DOB}"/>
+				<DatePicker dateValue="{localModel>DOB}" />
+				<core:Title/>
+				<Label text="{i18n>address}"/>
+				<VBox>
+					<Input value="{localModel>Address1}" maxLength="30"/>
+					<Input value="{localModel>Address2}" maxLength="30"/>
+				</VBox>
+				<Label text="{i18n>pincode}"/>
+				<Input value="{localModel>pinCode}" class="sapUiMediumMarginBottom" maxLength="6"/>
+				<Label text="{i18n>adhar}"/>
+				<Input value="{localModel>adhar}" class="sapUiMediumMarginBottom" maxLength="12"/>
+				<Label text="{i18n>pan}"/>
+				<Input value="{localModel>pan}" maxLength="8"/>
+			</f:content>
+		</f:SimpleForm>
+		<!--<f:SimpleForm class="work_frag" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"-->
+		<!--	labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"-->
+		<!--	singleContainerFullSize="false">-->
+		<!--	<f:content>-->
+		<!--		<core:Title/>-->
+		<!--		<Label text="{i18n>name}"/>-->
+		<!--		<Input value="SupplierName" class="sapUiMediumMarginBottom"/>-->
+		<!--		<Label text="{i18n>mob}"/>-->
+		<!--		<Input value="7353912305" class="sapUiMediumMarginBottom"/>-->
+		<!--		<Label text="{i18n>mail}"/>-->
+		<!--		<Input value="shivaraj@gmail.com" class="sapUiMediumMarginBottom"/>-->
+		<!--		<Label text="{i18n>DOB}"/>-->
+		<!--		<DatePicker value="01 Jan 1990"/>-->
+		<!--		<core:Title/>-->
+		<!--		<Label text="{i18n>address}"/>-->
+		<!--		<VBox>-->
+		<!--			<Input value="Mangalore"/>-->
+		<!--			<Input value="Karnataka"/>-->
+		<!--		</VBox>-->
+		<!--	</f:content>-->
+		<!--</f:SimpleForm>-->
+	<!--</VBox>-->
+</core:FragmentDefinition>

@@ -1,0 +1,159 @@
+<mvc:View controllerName="SE.SMT_Employee.controller.App" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" displayBlock="true"
+	xmlns="sap.m" xmlns:tnt="sap.tnt" xmlns:card="sap.f.cards" xmlns:f="sap.f" xmlns:ux="sap.uxap">
+	<!--<Shell id="shell">-->
+	<App id="app">
+		<pages>
+			<Page id="page" title="{i18n>title}" showHeader="false">
+				<content>
+					<tnt:ToolPage >
+						<!--<tnt:header>-->
+						<!--	<tnt:ToolHeader>-->
+						<!--		<Button type="Transparent" icon="sap-icon://menu2"/>-->
+						<!--		<ToolbarSpacer width="1em"/>-->
+						<!--		<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Text class="headerText" text="{i18n>headerSigniwis}"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>-->
+						<!--		<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>-->
+						<!--	</tnt:ToolHeader>-->
+						<!--</tnt:header>-->
+						<tnt:sideContent>
+							<tnt:SideNavigation itemSelect=".onItemSelect">
+								<tnt:NavigationList items="{localModel>/sideNav}">
+									<tnt:items>
+										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" key="{localModel>key}"/>
+									</tnt:items>
+								</tnt:NavigationList>
+								<tnt:fixedItem>
+									<tnt:NavigationList items="{localModel>/fixedNavigation}">
+										<tnt:NavigationListItem text="{localModel>title}" icon="{localModel>icon}" key="{localModel>key}"/>
+									</tnt:NavigationList>
+								</tnt:fixedItem>
+							</tnt:SideNavigation>
+						</tnt:sideContent>
+						<tnt:mainContents>
+							<NavContainer id="pageContainer">
+								<pages>
+									<ScrollContainer id="page1" horizontal="false" vertical="true" height="100%">
+										<f:Card class="sapUiMediumMargin" width="44%">
+											<f:header>
+												<card:Header title="{i18n>Birthday}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List items="{birthdayModel>/Employee}">
+
+														<items>
+															<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
+														</items>
+
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="44%">
+											<f:header>
+												<card:Header title="{i18n>NewHires}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List items="{newhiresData>/Employee}">
+														<items>
+															<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}"
+																number="{newhiresData>joinDate}"></ObjectListItem>
+														</items>
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="44%">
+											<f:header>
+												<card:Header title="{i18n>NewsFeed}"/>
+												<ToolbarSpacer></ToolbarSpacer>
+												<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List items="{newsData>/data}" id="listid">
+														<items>
+
+															<NotificationListItem title="{newsData>Name}" description="{newsData>News}" showCloseButton="true" datetime="{newsData>sDate}"
+																authorName="{newsData>Time}" close=".onItemClose" press=".onListItemPress"/>
+														</items>
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+										<f:Card class="sapUiMediumMargin" width="44%">
+											<f:header>
+												<card:Header title="{i18n>QuickLinks}"/>
+											</f:header>
+											<f:content>
+												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+													<List items="{quicklinksData>/data}">
+														<items>
+															<FeedListItem icon="{quicklinksData>icon}" info="{quicklinksData>Author}" timestamp="{quicklinksData>Date}" text="{quicklinksData>Text}"/>
+														</items>
+													</List>
+												</ScrollContainer>
+											</f:content>
+										</f:Card>
+									</ScrollContainer>
+									<Page id="page2" showHeader="false" enableScrolling="true">
+										<VBox width="100%">
+											<Image class="coverImage" src="https://cdn.pixabay.com/photo/2017/03/05/21/43/planet-2120004_960_720.jpg" width="100%" height="12rem"
+												mode="Image"/>
+											<Avatar class="profileImage" src="{localModel>/profilePic}" displaySize="XL" press="onChangeProfile" badgeIcon="sap-icon://camera"
+												badgeTooltip="Take Photo"/>
+										</VBox>
+										<Toolbar>
+											<ToolbarSpacer/>
+											<Switch state="{localModel>/switchState}" customTextOn="{i18n>edit}" customTextOff="{i18n>save}" change="editOrSave"/>
+										</Toolbar>
+										<ux:ObjectPageLayout useIconTabBar="true">
+											<ux:headerTitle >
+												<ux:ObjectPageDynamicHeaderTitle>
+													<ux:heading>
+														<Title text="{localModel>/EmpDetail/0/empName}"/>
+													</ux:heading>
+													<ux:expandedContent>
+														<Text text="Senior UI Developer"/>
+													</ux:expandedContent>
+												</ux:ObjectPageDynamicHeaderTitle>
+											</ux:headerTitle>
+											<ux:sections>
+												<ux:ObjectPageSection title="{i18n>about}">
+													<ux:subSections>
+														<ux:ObjectPageSubSection id="about_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display" type="XML"/>-->
+															<!--</ux:blocks>-->
+														</ux:ObjectPageSubSection>
+													</ux:subSections>
+												</ux:ObjectPageSection>
+												<ux:ObjectPageSection title="{i18n>work}">
+													<ux:subSections>
+														<ux:ObjectPageSubSection id="work_object_page_sub">
+															<!--<ux:blocks >-->
+															<!--	<core:Fragment fragmentName="SE.SMT_Employee.Fragment.Display2" type="XML"/>-->
+															<!--</ux:blocks>-->
+														</ux:ObjectPageSubSection>
+													</ux:subSections>
+												</ux:ObjectPageSection>
+											</ux:sections>
+										</ux:ObjectPageLayout>
+									</Page>
+									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
+										<Text text="That third page"/>
+									</ScrollContainer>
+								</pages>
+							</NavContainer>
+						</tnt:mainContents>
+					</tnt:ToolPage >
+				</content>
+			</Page>
+		</pages>
+	</App>
+	<!--</Shell>-->
+</mvc:View>

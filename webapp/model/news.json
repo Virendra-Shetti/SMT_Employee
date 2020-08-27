@@ -1,0 +1,28 @@
+{
+	"data": [{
+
+		"News": "Facebook is working on making it easier for users to browse the News Feed by implementing a tabbed version of it. Currently in the prototype phase,it will give users an option to sort the feed into ‘Most Relevant’, ‘Most Recent’, and ‘Already Seen’. ",
+
+		"Name": "Facebook Testing Tabs on App",
+		"sDate":"21-8-2020",
+		"Time":"3hrs ago"
+	
+
+	}, {
+
+		"News": "CultureIQ is a platform that enables organizations to make positive, measurable changes to their culture, and a community that connects peers and experts around the topic of culture. The CultureIQ platform helps companies actively engage their culture through an ongoing process of collecting, understanding, and responding to internal feedback to drive employee engagement, retention",
+
+		"Name": "CultureIQ | Company Culture Blog RSS Feed",
+			"sDate":"20-8-2020",
+				"Time":"15hrs ago"
+
+	}, {
+
+		"News": "The TalentCulture community focuses on a spectrum of workplace related topics which includes careers, learning and development, business leadership, talent strategy, HR, recruiting, innovation management, work/life balance",
+
+		"Name": "TalentCulture RSS Feed",
+			"sDate":"19-8-2020",
+				"Time":"1 day ago"
+
+	}]
+}
