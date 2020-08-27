@@ -142,9 +142,9 @@ onLeavesubmit:function(){
 		this.getOwnerComponent().getModel( "LeaveData").setProperty("/leavedata",	this.arr);
 		sap.m.MessageToast.show("Request Sent");
 			}
-				sap.ui.core.Fragment.byId(oFragId, "name").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "reason").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValue("");
 
 			
 },
@@ -169,9 +169,9 @@ leaveModel.push(payload);
 		this.getOwnerComponent().getModel( "LeaveData").setProperty("/leavedata",	leaveModel);
 		sap.m.MessageToast.show("Request Sent");
 			}
-				sap.ui.core.Fragment.byId(oFragId, "name").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "reason").setValue("");
-				sap.ui.core.Fragment.byId(oFragId, "datePick").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "aname").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValue("");
 },
 onClose:function(){
 		this._onRequestFrag().close();
