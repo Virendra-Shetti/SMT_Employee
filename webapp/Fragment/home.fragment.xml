@@ -19,7 +19,7 @@
 										</f:Card>
 										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
-												<card:Header title="{i18n>NewHires}"/>
+												<card:Header title="{i18n>NewHires}" />
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
@@ -34,7 +34,7 @@
 										</f:Card>
 										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
-												<card:Header title="{i18n>NewsFeed}"/>
+												<card:Header title="{i18n>NewsFeed}" />
 												<ToolbarSpacer></ToolbarSpacer>
 												<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
 											</f:header>
@@ -52,7 +52,7 @@
 										</f:Card>
 										<f:Card class="sapUiMediumMargin" width="44%">
 											<f:header>
-												<card:Header title="{i18n>QuickLinks}"/>
+												<card:Header title="{i18n>QuickLinks}"  ></card:Header>
 											</f:header>
 											<f:content>
 												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">

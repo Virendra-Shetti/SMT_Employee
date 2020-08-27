@@ -1,45 +1,55 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<Dialog>
 		<VBox alignContent="Center" alignItems="Center" justifyContent="Center" class="simpleform">
-			<form:SimpleForm editable="true" width="400px">
+			<form:SimpleForm editable="true" width="500px">
+		
 				<IconTabBar class="sapUiResponsiveContentPadding" expandable="true">
 					<items>
 						<IconTabFilter text="Log">
 							<Label/>
-							<Text text="Log"></Text>
-							<Text></Text>
-							<Text></Text>
-							<Text></Text>
+							<List items="{LeaveData>/leavedata}">
+								<items>
+									<!--<NotificationListItem title="{LeaveData>Reason}" description="{LeaveData>Status}" showCloseButton="true" datetime="{LeaveData>Date}"-->
+									<!--						 close=".onItemClose" press=".onListItemPress"/>-->
+															 	<ObjectListItem title="{LeaveData>Reason}"  numberUnit="{LeaveData>Date}"
+																number="{LeaveData>Status}"></ObjectListItem>
+								</items>
+							</List>
+						
 						</IconTabFilter>
 						<IconTabFilter text="LeaveRequest">
 							<Label/>
+								<form:SimpleForm>
 							<Label text="{i18n>Label_EmpName}"></Label>
-							<Input id="ename" value="" maxLength="10"></Input>
-							<Label text="{i18n>Label_EmpId}"></Label>
-							<Input id="eid" value="" maxLength="10"></Input>
+							<Input id="ename" maxLength="10"></Input>
+							<!--<Label text="{i18n>Label_EmpId}"></Label>-->
+							<!--<Input id="eid"  maxLength="10"></Input>-->
 							<Label text="{i18n>Label_Date}"></Label>
-							<DatePicker id="dateid"></DatePicker>
+							<DatePicker id="dateid" change="Change"></DatePicker>
 							<Label text="{i18n>Label_Reason}"></Label>
-							<Input id="reason" value="" maxLength="20"></Input>
+							<TextArea id="reason"></TextArea>
 							<Label></Label>
-							<Button text="Submit" press="onLeavesubmit" width="40%" ></Button>
+							<Button text="Submit" press="onLeavesubmit" width="100%" ></Button>
 						
-									<Button text="Cancel" press="onLeaveCancel"  width="40%" type="Reject"></Button>
+									<Button text="Cancel" press="onLeaveCancel"  width="70%" type="Reject"></Button>
+										</form:SimpleForm>
 						</IconTabFilter>
 						<IconTabFilter text="AssetRequest">
 							<Label/>
+								<form:SimpleForm>
 							<Label text="{i18n>Label_EmpName}"></Label>
-							<Input id="aname" value="" maxLength="10"></Input>
-							<Label text="{i18n>Label_EmpId}"></Label>
-							<Input id="aid" value="" maxLength="10"></Input>
+							<Input id="aname"  maxLength="10"></Input>
+							<!--<Label text="{i18n>Label_EmpId}"></Label>-->
+							<!--<Input id="aid"  maxLength="10"></Input>-->
 							<Label text="{i18n>Label_Date}"></Label>
-							<DatePicker id="adateid"></DatePicker>
+							<DatePicker id="adateid" change="assetChange"></DatePicker>
 							<Label text="{i18n>Label_AReason}"></Label>
-							<Input id="areason" value="" maxLength="20"></Input>
+							<TextArea id="areason"></TextArea>
 							<Label ></Label>
-							<Button text="Submit" press="onAssetsubmit"  width="40%" ></Button>
+							<Button text="Submit" press="onAssetsubmit"  width="70%" ></Button>
 						
-									<Button text="Cancel" press="onAssetCancel"  width="40%" type="Reject"></Button>
+									<Button text="Cancel" press="onAssetCancel"  width="70%" type="Reject"></Button>
+										</form:SimpleForm>
 						</IconTabFilter>
 					</items>
 				</IconTabBar>
