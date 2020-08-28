@@ -83,58 +83,66 @@
 										</ux:ObjectPageLayout>
 									</Page>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
-
-										<IconTabBar id="iconTabBarId" class="sapUiResponsiveContentPadding" select="onSelect">
+										<IconTabBar class="sapUiResponsiveContentPadding" expandable="false">
 											<items>
-												<IconTabFilter text="TimeSheetUpload" id="timesheetid" key="tab1">
-													<tab:Table rows="{TimeData>/timedata}">
-														<tab:columns>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Date"></Label>
-																</tab:label>
-																<tab:template>
-																	<!--<Input editable="true" type="Text" value="usha"></Input>-->
-																	<Text text="{TimeData>Date}"></Text>
-																</tab:template>
-															</tab:Column>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Timesheetfiles"></Label>
-																</tab:label>
-																<tab:template>
-																	<Text text="{TimeData>EmpName}"></Text>
-																</tab:template>
-															</tab:Column>
-														</tab:columns>
-													</tab:Table>
+												<IconTabFilter text="{i18n>timeSheet}">
+													<Table items="{localModel>/TimeSheet}">
+														<headerToolbar>
+															<Toolbar>
+																<content>
+																	<ToolbarSpacer/>
+																	<Button text="{i18n>upload}" press="onPressTimeSheetUpload"/>
+																</content>
+															</Toolbar>
+														</headerToolbar>
+														<columns>
+															<Column>
+																<Text text="{i18n>uploadDate}"/>
+															</Column>
+															<Column>
+																<Text text="{i18n>timeSheet}"/>
+															</Column>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Text text="{localModel>uplodDate}"/>
+																	<Link text="{i18n>download}" href="{localModel>timeSheetURL}" target="_blank"/>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
 												</IconTabFilter>
-												<IconTabFilter text="FilesUpload" id="filesid" key="tab2">
-													<tab:Table>
-														<tab:columns>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Date"></Label>
-																</tab:label>
-																<tab:template>
-																	<!--<Input editable="true" type="Text" value="usha"></Input>-->
-																	<Text text="hi"></Text>
-																</tab:template>
-															</tab:Column>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Timesheetfiles"></Label>
-																</tab:label>
-																<tab:template>
-																	<Text text="hi"></Text>
-																</tab:template>
-															</tab:Column>
-														</tab:columns>
-													</tab:Table>
+												<IconTabFilter text="{i18n>files}">
+													<Table items="{localModel>/Files}">
+														<headerToolbar>
+															<Toolbar>
+																<content>
+																	<ToolbarSpacer/>
+																	<Button text="{i18n>upload}" press="onPressFilesUpload"/>
+																</content>
+															</Toolbar>
+														</headerToolbar>
+														<columns>
+															<Column>
+																<Text text="{i18n>uploadDate}"/>
+															</Column>
+															<Column>
+																<Text text="{i18n>files}"/>
+															</Column>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Text text="{localModel>uplodDate}"/>
+																	<Link text="{i18n>download}" href="{localModel>filesURL}" target="_blank"/>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
 												</IconTabFilter>
 											</items>
 										</IconTabBar>
-
 									</ScrollContainer>
 								</pages>
 							</NavContainer>
