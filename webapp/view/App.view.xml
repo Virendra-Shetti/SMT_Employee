@@ -6,18 +6,18 @@
 			<Page id="page" title="{i18n>title}" showHeader="false">
 				<content>
 					<tnt:ToolPage id="tntToolPage">
-						<tnt:header>
-							<tnt:ToolHeader>
-								<Button id="sideNavigationToggleButton" type="Transparent" icon="sap-icon://menu2" press=".onSideNavButtonPress"/>
-								<ToolbarSpacer width="1em"/>
-								<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>
-								<ToolbarSpacer/>
-								<Text class="headerText" text="{i18n>headerSigniwis}"/>
-								<ToolbarSpacer/>
-								<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
-								<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>
-							</tnt:ToolHeader>
-						</tnt:header>
+						<!--<tnt:header>-->
+						<!--	<tnt:ToolHeader>-->
+						<!--		<Button id="sideNavigationToggleButton" type="Transparent" icon="sap-icon://menu2" press=".onSideNavButtonPress"/>-->
+						<!--		<ToolbarSpacer width="1em"/>-->
+						<!--		<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Text class="headerText" text="{i18n>headerSigniwis}"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>-->
+						<!--		<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>-->
+						<!--	</tnt:ToolHeader>-->
+						<!--</tnt:header>-->
 						<tnt:sideContent>
 							<tnt:SideNavigation itemSelect=".onItemSelect">
 								<tnt:NavigationList items="{localModel>/sideNav}">

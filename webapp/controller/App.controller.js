@@ -740,26 +740,26 @@ sap.ui.define([
 			}
 
 		},
-		onPress: function (oEvent) {
+		// onPress: function (oEvent) {
 
-			var oButton = oEvent.getSource();
+		// 	var oButton = oEvent.getSource();
 
-			if (!this._oPopover) {
-				Fragment.load({
+		// 	if (!this._oPopover) {
+		// 		Fragment.load({
 
-					name: "SE.SMT_Employee.Fragment.notifyPop",
-					controller: this
-				}).then(function (oPopover) {
-					this._oPopover = oPopover;
-					this.getView().addDependent(this._oPopover);
+		// 			name: "SE.SMT_Employee.Fragment.notifyPop",
+		// 			controller: this
+		// 		}).then(function (oPopover) {
+		// 			this._oPopover = oPopover;
+		// 			this.getView().addDependent(this._oPopover);
 
-					this._oPopover.openBy(oButton);
-				}.bind(this));
-			} else {
-				this._oPopover.openBy(oButton);
-			}
+		// 			this._oPopover.openBy(oButton);
+		// 		}.bind(this));
+		// 	} else {
+		// 		this._oPopover.openBy(oButton);
+		// 	}
 
-		},
+		// },
 
 		_onAddFrag: function () {
 			if (!this.onAddFrag) {
