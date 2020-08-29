@@ -83,13 +83,24 @@
 										</ux:ObjectPageLayout>
 									</Page>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
-										<IconTabBar class="sapUiResponsiveContentPadding" expandable="false">
+										<IconTabBar id="otherIconTab" class="sapUiResponsiveContentPadding" expandable="false">
 											<items>
-												<IconTabFilter text="{i18n>timeSheet}">
-													<Table items="{localModel>/TimeSheet}">
+												<IconTabFilter text="{i18n>timeSheet}" key="0">
+													<Table id="timeSheeTable" items="{localModel>/TimeSheet}">
 														<headerToolbar>
 															<Toolbar>
 																<content>
+																	<ComboBox placeholder="{i18n>month}" items="{localModel>/MonthWise}" selectionChange="onSelectMonth">
+																		<items>
+																			<core:Item key="{localModel>mkey}"
+																				text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern:'MMM',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																		</items>
+																	</ComboBox>
+																	<ComboBox placeholder="{i18n>year}" items="{localModel>/YearWise}" selectionChange="onSelectYear">
+																		<items>
+																			<core:Item text="{localModel>uplodYear}"/>
+																		</items>
+																	</ComboBox>
 																	<ToolbarSpacer/>
 																	<Button text="{i18n>upload}" press="onPressTimeSheetUpload"/>
 																</content>
@@ -106,18 +117,30 @@
 														<items>
 															<ColumnListItem>
 																<cells>
-																	<Text text="{localModel>uplodDate}"/>
+																	<Text
+																		text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium',source: { pattern: 'MM/dd/yyyy' }} }"/>
 																	<Link text="{i18n>download}" href="{localModel>timeSheetURL}" target="_blank"/>
 																</cells>
 															</ColumnListItem>
 														</items>
 													</Table>
 												</IconTabFilter>
-												<IconTabFilter text="{i18n>files}">
-													<Table items="{localModel>/Files}">
+												<IconTabFilter text="{i18n>files}" key="1">
+													<Table id="fileTable" items="{localModel>/Files}">
 														<headerToolbar>
 															<Toolbar>
 																<content>
+																	<ComboBox placeholder="{i18n>month}" items="{localModel>/fileMonthWise}" selectionChange="onSelectMonth">
+																		<items>
+																			<core:Item key="{localModel>mkey}"
+																				text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern:'MMM',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																		</items>
+																	</ComboBox>
+																	<ComboBox placeholder="{i18n>year}" items="{localModel>/fileYearWise}" selectionChange="onSelectYear">
+																		<items>
+																			<core:Item text="{localModel>uplodYear}"/>
+																		</items>
+																	</ComboBox>
 																	<ToolbarSpacer/>
 																	<Button text="{i18n>upload}" press="onPressFilesUpload"/>
 																</content>
@@ -134,8 +157,9 @@
 														<items>
 															<ColumnListItem>
 																<cells>
-																	<Text text="{localModel>uplodDate}"/>
-																	<Link text="{i18n>download}" href="{localModel>filesURL}" target="_blank"/>
+																	<Text
+																		text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																	<Link text="{i18n>download}" href="{localModel>timeSheetURL}" target="_blank"/>
 																</cells>
 															</ColumnListItem>
 														</items>
