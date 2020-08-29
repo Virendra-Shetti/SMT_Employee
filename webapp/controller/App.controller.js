@@ -19,6 +19,10 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("localModel").setProperty("/EmpDetail/0/DOB", birthDate);
 			this._formFragments["Display"].bindElement("localModel>/EmpDetail/0");
 
+			//binding time sheet 
+			this._bindTimeSheetFilter();
+			this._bindFileFilter();
+
 		},
 		onExit: function () {
 
@@ -44,10 +48,139 @@ sap.ui.define([
 			// $("#work_object_page_sub .about_frag").hide();
 
 		},
+		onSelectYear: function (oEvent) {
+			debugger;
+			var otherIconTab = this.byId("otherIconTab").getSelectedKey(),
+				selectedItem = oEvent.getParameter("selectedItem"),
+				oFilter,
+				selectedYear,
+				monthIn = oEvent.getSource().getParent().getContent()[0].getSelectedKey();
+
+			if (selectedItem) {
+				selectedYear = selectedItem.getText();
+
+			} else {
+				selectedYear = "";
+			}
+
+			oFilter = new Filter({
+				filters: [
+					new Filter("mkey", sap.ui.model.FilterOperator.Contains, monthIn),
+					new Filter("ykey", sap.ui.model.FilterOperator.Contains, selectedYear)
+				],
+				and: true
+			});
+
+			if (otherIconTab !== "0") {
+				this.byId("fileTable").getBinding("items").filter(oFilter);
+			} else {
+				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
+			}
+		},
+		onSelectMonth: function (oEvent) {
+			debugger;
+			var otherIconTab = this.byId("otherIconTab").getSelectedKey(),
+				selectedItem = oEvent.getParameter("selectedItem"),
+				oFilter,
+				selectedMonth,
+				yearIn = oEvent.getSource().getParent().getContent()[1].getValue();
+
+			if (selectedItem) {
+				selectedMonth = selectedItem.getKey();
+
+			} else {
+				selectedMonth = "";
+			}
+
+			oFilter = new Filter({
+				filters: [
+					new Filter("mkey", sap.ui.model.FilterOperator.Contains, selectedMonth),
+					new Filter("ykey", sap.ui.model.FilterOperator.Contains, yearIn)
+				],
+				and: true
+			});
+
+			if (otherIconTab !== "0") {
+				this.byId("fileTable").getBinding("items").filter(oFilter);
+			} else {
+				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
+			}
+		},
+		_bindTimeSheetFilter: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				oTimeSheet = oLocalModel.getProperty("/TimeSheet"),
+				uploadDate = [],
+				i,
+				yearArr = [],
+				uploadYear = [],
+				dateArr = [];
+
+			for (var x of oTimeSheet) {
+				var n = x.uplodDate.split("/");
+				dateArr.push(
+					`${n[0]}`
+				);
+				yearArr.push(
+					`${n[2]}`
+				);
+			}
+
+			for (i of[...new Set(dateArr)]) {
+				uploadDate.push({
+					"uplodDate": `${i}/01/2020`,
+					"mkey": i
+				})
+			}
+
+			oLocalModel.setProperty("/MonthWise", uploadDate);
+
+			for (i of[...new Set(yearArr)]) {
+				uploadYear.push({
+					"uplodYear": i
+				})
+			}
+			oLocalModel.setProperty("/YearWise", uploadYear);
+		},
+		_bindFileFilter: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				oTimeSheet = oLocalModel.getProperty("/Files"),
+				uploadDate = [],
+				i,
+				yearArr = [],
+				uploadYear = [],
+				dateArr = [];
+
+			for (var x of oTimeSheet) {
+				var n = x.uplodDate.split("/");
+				dateArr.push(
+					`${n[0]}`
+				);
+				yearArr.push(
+					`${n[2]}`
+				);
+			}
+
+			for (i of[...new Set(dateArr)]) {
+				uploadDate.push({
+					"uplodDate": `${i}/01/2020`,
+					"mkey": i
+				})
+			}
+
+			oLocalModel.setProperty("/fileMonthWise", uploadDate);
+
+			for (i of[...new Set(yearArr)]) {
+				uploadYear.push({
+					"uplodYear": i
+				})
+			}
+			oLocalModel.setProperty("/fileYearWise", uploadYear);
+		},
 
 		_onSubmitTimeSheet: function () {
 			debugger;
-			var timeSheetArr = this.getOwnerComponent().getModel("localModel").getProperty("/TimeSheet") || [],
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				timeSheetArr = oLocalModel.getProperty("/TimeSheet") || [],
 				oFileUp = this.onAddTimesheetFrag.getContent()[0],
 				uplodedFile = oFileUp.oFileUpload.files[0];
 
@@ -60,19 +193,26 @@ sap.ui.define([
 				oFileUp.setValue("");
 
 				var timeSheetUrl = URL.createObjectURL(uplodedFile),
-					uplodDate = new Date().toDateString().slice(4),
+					uplodDate = new Date().toLocaleDateString(),
 					timeSheetObj = {
 						"timeSheetURL": timeSheetUrl,
-						"uplodDate": uplodDate
+						"uplodDate": uplodDate,
+						"mkey": uplodDate.split("/")[0],
+						"ykey": uplodDate.split("/")[2]
+
 					};
 
 				timeSheetArr.push(timeSheetObj);
-				this.getOwnerComponent().getModel("localModel").setProperty("/TimeSheet", timeSheetArr);
+				oLocalModel.setProperty("/TimeSheet", timeSheetArr);
 				this.onAddTimesheetFrag.close();
+
+				this._bindFileFilter();
+
 			}
 		},
 		_onSubmitFiles: function () {
-			var timeSheetArr = this.getOwnerComponent().getModel("localModel").getProperty("/Files") || [],
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				timeSheetArr = oLocalModel.getProperty("/Files") || [],
 				oFileUp = this.onAddFilesheetFrag.getContent()[0],
 				uplodedFile = oFileUp.oFileUpload.files[0];
 
@@ -85,15 +225,19 @@ sap.ui.define([
 				oFileUp.setValue("");
 
 				var timeSheetUrl = URL.createObjectURL(uplodedFile),
-					uplodDate = new Date().toDateString().slice(4),
+					uplodDate = new Date().toLocaleDateString(),
 					timeSheetObj = {
 						"timeSheetURL": timeSheetUrl,
-						"uplodDate": uplodDate
+						"uplodDate": uplodDate,
+						"mkey": uplodDate.split("/")[0],
+						"ykey": uplodDate.split("/")[2]
 					};
 
 				timeSheetArr.push(timeSheetObj);
-				this.getOwnerComponent().getModel("localModel").setProperty("/Files", timeSheetArr);
+				oLocalModel.setProperty("/Files", timeSheetArr);
 				this.onAddFilesheetFrag.close();
+
+				this._bindTimeSheetFilter();
 			}
 		},
 		_onRequestFrag: function () {

@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core">
 	<Dialog  titleAlignment="Center" contentWidth="33%">
-		<u:FileUploader class="sapUiMediumMargin" placeholder="Select a file" style="Emphasized" width="80%"></u:FileUploader>
+		<u:FileUploader class="sapUiMediumMargin" placeholder="{i18n>selectFile}" style="Emphasized" width="80%"></u:FileUploader>
 		<buttons>
 			<Button text="{i18n>submit}" />
 			<Button text="{i18n>Cancel}" />
