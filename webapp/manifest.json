@@ -12,6 +12,16 @@
 		"sourceTemplate": {
 			"id": "ui5template.basicSAPUI5ApplicationProject",
 			"version": "1.40.12"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
+			}
 		}
 	},
 	"sap.ui": {
@@ -57,6 +67,9 @@
 					"bundleName": "SE.SMT_Employee.i18n.i18n"
 				}
 			},
+			"": {
+				"dataSource": "mainService"
+			},
 			"localModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri": "model/localModel.json"
@@ -83,11 +96,9 @@
 			}
 		},
 		"resources": {
-			"css": [
-				{
-					"uri": "css/style.css"
-				}
-			]
+			"css": [{
+				"uri": "css/style.css"
+			}]
 		},
 		"routing": {
 			"config": {
@@ -99,15 +110,13 @@
 				"controlId": "app",
 				"clearControlAggregation": false
 			},
-			"routes": [
-				{
-					"name": "RouteApp",
-					"pattern": "RouteApp",
-					"target": [
-						"TargetApp"
-					]
-				}
-			],
+			"routes": [{
+				"name": "RouteApp",
+				"pattern": "RouteApp",
+				"target": [
+					"TargetApp"
+				]
+			}],
 			"targets": {
 				"TargetApp": {
 					"viewType": "XML",
