@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<Dialog showHeader="false" contentHeight="60%" contentWidth="40%">
+	<Dialog showHeader="false" contentHeight="70%" contentWidth="40%">
 		<VBox alignContent="Center" alignItems="Center" justifyContent="Center" class="simpleform">
 			<form:SimpleForm editable="true" width="500px">
 				<IconTabBar class="sapUiResponsiveContentPadding" expandable="true">
@@ -22,7 +22,7 @@
 								<TextArea id="reason"></TextArea>
 								<Label></Label>
 								<Button text="Submit" press="onLeavesubmit" width="100%"></Button>
-								<Button text="Cancel" press="onLeaveCancel" width="70%" type="Reject"></Button>
+								<!--<Button text="Cancel" press="onLeaveCancel" width="70%" type="Reject"></Button>-->
 							</form:SimpleForm>
 						</IconTabFilter>
 						<IconTabFilter text="Asset Request">
@@ -36,12 +36,15 @@
 						
 								<Button text="Submit" press="onAssetsubmit" width="100%"></Button>
 							
-								<Button text="Cancel" press="onAssetCancel" width="70%" type="Reject"></Button>
+								<!--<Button text="Cancel" press="onAssetCancel" width="70%" type="Reject"></Button>-->
 							</form:SimpleForm>
 						</IconTabFilter>
 					</items>
 				</IconTabBar>
 			</form:SimpleForm>
 		</VBox>
+			<endButton>
+			<Button text="Cancel" press="onRequestCancel"  ></Button>
+		     </endButton>
 	</Dialog>
 </core:FragmentDefinition>

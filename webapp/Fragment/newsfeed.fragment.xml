@@ -16,7 +16,7 @@
 			<Button text="Post" press="onPost" width="50%" type="Emphasized"></Button>
 			</beginButton>
 			<endButton>
-			<Button text="Cancel" press="onnewsCancel"  type="Reject"></Button>
+			<Button text="Cancel" press="onnewsCancel"  ></Button>
 		     </endButton>
 		
 	</Dialog>
