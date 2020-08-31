@@ -13,7 +13,7 @@
 								</items>
 							</List>
 						</IconTabFilter>
-						<IconTabFilter text="LeaveRequest">
+						<IconTabFilter text="Leave Request">
 							<Label/>
 							<form:SimpleForm>
 								<Label text="{i18n>Label_Date}"></Label>
@@ -25,7 +25,7 @@
 								<!--<Button text="Cancel" press="onLeaveCancel" width="70%" type="Reject"></Button>-->
 							</form:SimpleForm>
 						</IconTabFilter>
-						<IconTabFilter text="AssetRequest">
+						<IconTabFilter text="Asset Request">
 							<Label/>
 							<form:SimpleForm>
 								<Label text="{i18n>Label_Date}"></Label>

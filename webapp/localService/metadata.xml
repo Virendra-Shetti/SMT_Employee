@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:sap="http://www.sap.com/Protocols/SAPData"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+	<edmx:DataServices m:DataServiceVersion="1.0">
+		<Schema Namespace="com.sap.wt05" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+			<EntityType Name="EmpDetail">
+				<Key>
+					<PropertyRef Name="empName"/>
+				</Key>
+				<Property Name="empName" Type="Edm.String" MaxLength="10" sap:label="employeeName" sap:filterable="false" sap:updatable="true"/>
+				<Property Name="adhar" Type="Edm.String" MaxLength="12" sap:creatable="true"/>
+				<Property Name="pinCode" Type="Edm.String" MaxLength="6" sap:creatable="true"/>
+				<Property Name="pan" Type="Edm.String" MaxLength="8" sap:creatable="true"/>
+				<Property Name="mailId" Type="Edm.String" MaxLength="20" sap:creatable="true"/>
+				<Property Name="mob" Type="Edm.Int32" MaxLength="10"/>
+				<Property Name="Address1" Type="Edm.String" MaxLength="25"/>
+				<Property Name="Address2" Type="Edm.String" MaxLength="25"/>
+			</EntityType>
+			<EntityContainer m:IsDefaultEntityContainer="true" sap:supported-formats="atom json">
+				<!--atributes (updatable ,creatable ) of entityset will be defalutls based on enityset atributes-->
+				<EntitySet Name="EmpDetailSet" EntityType="com.sap.wt05.Invoice" sap:updatable="true" sap:creatable="true"/>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
