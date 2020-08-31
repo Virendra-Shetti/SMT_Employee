@@ -44,24 +44,8 @@ sap.ui.define([
 			// $("#work_object_page_sub .about_frag").hide();
 
 		},
-			_onAddTimesheetFrag: function () {
-			if (!this.onAddTimesheetFrag) {
-				var oId = this.createId("timeid");
-				this.onAddTimesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.timesheet", this);
-				this.getView().addDependent(this.onAddTimesheetFrag);
-
-			}
-			return this.onAddTimesheetFrag;
-		},
-			_onAddFilesheetFrag: function () {
-			if (!this.onAddFilesheetFrag) {
-				var oId = this.createId("fileid");
-				this.onAddFilesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.filesheet", this);
-				this.getView().addDependent(this.onAddFilesheetFrag);
-
-			}
-			return this.onAddFilesheetFrag;
-		},
+		
+		
 			_onRequestFrag: function () {
 			if (!this.onRequestFrag) {
 				var oId = this.createId("requestid");
@@ -142,12 +126,12 @@ sap.ui.define([
 onLeavesubmit:function(){
 	debugger;
 		var oFragTimeId = this.createId("requestid");
-				var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").getValue();
+				// var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").getValue();
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
 					var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").getValue();
 					var RequestSent= "Request Sent";
-			if (name === "" && reason === "" && date === "" ) {
-						var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValueState("Error");
+			if ( reason === "" && date === "" ) {
+						// var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValueState("Error");
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("Error");
 					var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("Error");
 
@@ -156,14 +140,15 @@ onLeavesubmit:function(){
 			var payload={
 			Reason:reason,
 				Date:date,
-				Status:RequestSent
+				Status:RequestSent,
+					Icon:"sap-icon://general-leave-request"
 			};
 	
 	this.arr.push(payload);
 		this.getOwnerComponent().getModel( "LeaveData").setProperty("/leavedata",	this.arr);
 		sap.m.MessageToast.show("Request Sent");
 			}
-				sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValue("");
+				// sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValue("");
 				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValue("");
 				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValue("");
 
@@ -176,21 +161,22 @@ onAssetsubmit:function(){
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "adateid").getValue();
 					var reason = sap.ui.core.Fragment.byId(oFragTimeId, "areason").getValue();
 					var RequestSent= "Request Sent";
-			if (name === "" && reason === "" && date === "" ) {
+			if ( reason === "" && date === "" ) {
 
 				sap.m.MessageToast.show("Please fill the blank");
 			} else {
 			var payload={
 			Reason:reason,
 				Date:date,
-				Status:RequestSent
+				Status:RequestSent,
+				Icon:"sap-icon://add-product"
 			};
 		var leaveModel=	this.getOwnerComponent().getModel( "LeaveData").getProperty("/leavedata");
 leaveModel.push(payload);
 		this.getOwnerComponent().getModel( "LeaveData").setProperty("/leavedata",	leaveModel);
 		sap.m.MessageToast.show("Request Sent");
 			}
-				sap.ui.core.Fragment.byId(oFragTimeId, "aname").setValue("");
+				// sap.ui.core.Fragment.byId(oFragTimeId, "aname").setValue("");
 				sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValue("");
 				sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValue("");
 },

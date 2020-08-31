@@ -87,50 +87,10 @@
 										<IconTabBar id="iconTabBarId" class="sapUiResponsiveContentPadding" select="onSelect">
 											<items>
 												<IconTabFilter text="TimeSheetUpload" id="timesheetid" key="tab1">
-													<tab:Table rows="{TimeData>/timedata}">
-														<tab:columns>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Date"></Label>
-																</tab:label>
-																<tab:template>
-																	<!--<Input editable="true" type="Text" value="usha"></Input>-->
-																	<Text text="{TimeData>Date}"></Text>
-																</tab:template>
-															</tab:Column>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Timesheetfiles"></Label>
-																</tab:label>
-																<tab:template>
-																	<Text text="{TimeData>EmpName}"></Text>
-																</tab:template>
-															</tab:Column>
-														</tab:columns>
-													</tab:Table>
+												
 												</IconTabFilter>
 												<IconTabFilter text="FilesUpload" id="filesid" key="tab2">
-													<tab:Table>
-														<tab:columns>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Date"></Label>
-																</tab:label>
-																<tab:template>
-																	<!--<Input editable="true" type="Text" value="usha"></Input>-->
-																	<Text text="hi"></Text>
-																</tab:template>
-															</tab:Column>
-															<tab:Column>
-																<tab:label>
-																	<Label text="Timesheetfiles"></Label>
-																</tab:label>
-																<tab:template>
-																	<Text text="hi"></Text>
-																</tab:template>
-															</tab:Column>
-														</tab:columns>
-													</tab:Table>
+													
 												</IconTabFilter>
 											</items>
 										</IconTabBar>
