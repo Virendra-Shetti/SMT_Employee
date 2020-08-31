@@ -274,11 +274,15 @@ sap.ui.define([
 			}
 			this.onAddFilesheetFrag.open();
 		},
-		onCancel: function () {
-			this._onAddTimesheetFrag().close();
+		_onCancel: function () {
+			this.onAddTimesheetFrag.getContent()[0].setValue("");
+			this.onAddTimesheetFrag.getContent()[0].setValueState("None");
+			this.onAddTimesheetFrag.close();
 		},
-		onCancelfile: function () {
-			this._onAddFilesheetFrag().close();
+		_onCancelfile: function () {
+			this.onAddFilesheetFrag.getContent()[0].setValue("");
+			this.onAddFilesheetFrag.getContent()[0].setValueState("None");
+			this.onAddFilesheetFrag.close();
 		},
 		onLeaveCancel: function () {
 			this._onRequestFrag().close();
