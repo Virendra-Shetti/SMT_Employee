@@ -275,9 +275,11 @@ sap.ui.define([
 			this.onAddFilesheetFrag.open();
 		},
 		onCancel: function () {
+			debugger;
 			this._onAddTimesheetFrag().close();
 		},
 		onCancelfile: function () {
+			debugger;
 			this._onAddFilesheetFrag().close();
 		},
 		onLeaveCancel: function () {
@@ -331,7 +333,7 @@ sap.ui.define([
 
 		arr: [],
 		onLeavesubmit: function () {
-
+debugger;
 			var oFragTimeId = this.createId("requestid");
 			// var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").getValue();
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
@@ -343,7 +345,17 @@ sap.ui.define([
 				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("Error");
 
 				sap.m.MessageToast.show("Please fill the blank");
-			} else {
+			}else if(date === ""){
+				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
+				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("Error");
+			}
+			
+			else if(reason === ""){
+				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueStateText("please give the reason for leave");
+				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("Error");
+			}
+			
+			else {
 				var payload = {
 					Reason: reason,
 					Date: date,
@@ -357,7 +369,9 @@ sap.ui.define([
 			}
 			// sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValue("");
 			sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("None");
 			sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("None");
 
 		},
 
@@ -370,7 +384,13 @@ sap.ui.define([
 			if (reason === "" && date === "") {
 
 				sap.m.MessageToast.show("Please fill the blank");
-			} else {
+			}else if(date === ""){
+				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
+			}
+			else if(reason === ""){
+				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValueStateText("please give the reason for leave");
+			}
+			else {
 				var payload = {
 					Reason: reason,
 					Date: date,
@@ -384,7 +404,9 @@ sap.ui.define([
 			}
 			// sap.ui.core.Fragment.byId(oFragTimeId, "aname").setValue("");
 			sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValueState("None");
 			sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValue("");
+				sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValueState("None");
 		},
 		onClose: function () {
 			this._onRequestFrag().close();
@@ -918,6 +940,9 @@ sap.ui.define([
 		},
 		onnewsCancel: function () {
 			this._onAddFrag().close();
+		},
+		onRequestCancel:function(){
+				this._onRequestFrag().close();
 		},
 		arr: [],
 		onPost: function () {
