@@ -6,18 +6,18 @@
 			<Page id="page" title="{i18n>title}" showHeader="false">
 				<content>
 					<tnt:ToolPage id="tntToolPage">
-						<tnt:header>
-							<tnt:ToolHeader>
-								<Button id="sideNavigationToggleButton" type="Transparent" icon="sap-icon://menu2" press=".onSideNavButtonPress"/>
-								<ToolbarSpacer width="1em"/>
-								<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>
-								<ToolbarSpacer/>
-								<Text class="headerText" text="{i18n>headerSigniwis}"/>
-								<ToolbarSpacer/>
-								<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>
-								<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>
-							</tnt:ToolHeader>
-						</tnt:header>
+						<!--<tnt:header>-->
+						<!--	<tnt:ToolHeader>-->
+						<!--		<Button id="sideNavigationToggleButton" type="Transparent" icon="sap-icon://menu2" press=".onSideNavButtonPress"/>-->
+						<!--		<ToolbarSpacer width="1em"/>-->
+						<!--		<Image src="http://www.signiwis.com/images/margo.png" width="5em"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Text class="headerText" text="{i18n>headerSigniwis}"/>-->
+						<!--		<ToolbarSpacer/>-->
+						<!--		<Button type="Transparent" press="onPress" icon="sap-icon://bell" tooltip="{i18n>notify}"/>-->
+						<!--		<Button type="Transparent" icon="sap-icon://log" tooltip="{i18n>logoutButton}"/>-->
+						<!--	</tnt:ToolHeader>-->
+						<!--</tnt:header>-->
 						<tnt:sideContent>
 							<tnt:SideNavigation itemSelect=".onItemSelect">
 								<tnt:NavigationList items="{localModel>/sideNav}">
@@ -83,18 +83,90 @@
 										</ux:ObjectPageLayout>
 									</Page>
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
-
-										<IconTabBar id="iconTabBarId" class="sapUiResponsiveContentPadding" select="onSelect">
+										<IconTabBar id="otherIconTab" class="sapUiResponsiveContentPadding" expandable="false">
 											<items>
-												<IconTabFilter text="TimeSheetUpload" id="timesheetid" key="tab1">
-												
+												<IconTabFilter text="{i18n>timeSheet}" key="0">
+													<Table id="timeSheeTable" items="{localModel>/TimeSheet}">
+														<headerToolbar>
+															<Toolbar>
+																<content>
+																	<ComboBox placeholder="{i18n>month}" items="{localModel>/MonthWise}" selectionChange="onSelectMonth">
+																		<items>
+																			<core:Item key="{localModel>mkey}"
+																				text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern:'MMM',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																		</items>
+																	</ComboBox>
+																	<ComboBox placeholder="{i18n>year}" items="{localModel>/YearWise}" selectionChange="onSelectYear">
+																		<items>
+																			<core:Item text="{localModel>uplodYear}"/>
+																		</items>
+																	</ComboBox>
+																	<ToolbarSpacer/>
+																	<Button text="{i18n>upload}" press="onPressTimeSheetUpload"/>
+																</content>
+															</Toolbar>
+														</headerToolbar>
+														<columns>
+															<Column>
+																<Text text="{i18n>uploadDate}"/>
+															</Column>
+															<Column>
+																<Text text="{i18n>timeSheet}"/>
+															</Column>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Text
+																		text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																	<Link text="{i18n>download}" href="{localModel>timeSheetURL}" target="_blank"/>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
 												</IconTabFilter>
-												<IconTabFilter text="FilesUpload" id="filesid" key="tab2">
-													
+												<IconTabFilter text="{i18n>files}" key="1">
+													<Table id="fileTable" items="{localModel>/Files}">
+														<headerToolbar>
+															<Toolbar>
+																<content>
+																	<ComboBox placeholder="{i18n>month}" items="{localModel>/fileMonthWise}" selectionChange="onSelectMonth">
+																		<items>
+																			<core:Item key="{localModel>mkey}"
+																				text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern:'MMM',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																		</items>
+																	</ComboBox>
+																	<ComboBox placeholder="{i18n>year}" items="{localModel>/fileYearWise}" selectionChange="onSelectYear">
+																		<items>
+																			<core:Item text="{localModel>uplodYear}"/>
+																		</items>
+																	</ComboBox>
+																	<ToolbarSpacer/>
+																	<Button text="{i18n>upload}" press="onPressFilesUpload"/>
+																</content>
+															</Toolbar>
+														</headerToolbar>
+														<columns>
+															<Column>
+																<Text text="{i18n>uploadDate}"/>
+															</Column>
+															<Column>
+																<Text text="{i18n>files}"/>
+															</Column>
+														</columns>
+														<items>
+															<ColumnListItem>
+																<cells>
+																	<Text
+																		text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium',source: { pattern: 'MM/dd/yyyy' }} }"/>
+																	<Link text="{i18n>download}" href="{localModel>timeSheetURL}" target="_blank"/>
+																</cells>
+															</ColumnListItem>
+														</items>
+													</Table>
 												</IconTabFilter>
 											</items>
 										</IconTabBar>
-
 									</ScrollContainer>
 								</pages>
 							</NavContainer>

@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/Fragment"
-], function (Controller, Fragment) {
+	"sap/ui/core/Fragment",
+	"sap/ui/model/Filter"
+], function (Controller, Fragment, Filter) {
 	"use strict";
 
 	return Controller.extend("SE.SMT_Employee.controller.App", {
@@ -17,6 +18,10 @@ sap.ui.define([
 			var birthDate = new Date("01/25/1990");
 			this.getOwnerComponent().getModel("localModel").setProperty("/EmpDetail/0/DOB", birthDate);
 			this._formFragments["Display"].bindElement("localModel>/EmpDetail/0");
+
+			//binding time sheet 
+			this._bindTimeSheetFilter();
+			this._bindFileFilter();
 
 		},
 		onExit: function () {
@@ -43,7 +48,198 @@ sap.ui.define([
 			// $("#work_object_page_sub .about_frag").hide();
 
 		},
+		onSelectYear: function (oEvent) {
+			debugger;
+			var otherIconTab = this.byId("otherIconTab").getSelectedKey(),
+				selectedItem = oEvent.getParameter("selectedItem"),
+				oFilter,
+				selectedYear,
+				monthIn = oEvent.getSource().getParent().getContent()[0].getSelectedKey();
 
+			if (selectedItem) {
+				selectedYear = selectedItem.getText();
+
+			} else {
+				selectedYear = "";
+			}
+
+			oFilter = new Filter({
+				filters: [
+					new Filter("mkey", sap.ui.model.FilterOperator.Contains, monthIn),
+					new Filter("ykey", sap.ui.model.FilterOperator.Contains, selectedYear)
+				],
+				and: true
+			});
+
+			if (otherIconTab !== "0") {
+				this.byId("fileTable").getBinding("items").filter(oFilter);
+			} else {
+				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
+			}
+		},
+		onSelectMonth: function (oEvent) {
+			debugger;
+			var otherIconTab = this.byId("otherIconTab").getSelectedKey(),
+				selectedItem = oEvent.getParameter("selectedItem"),
+				oFilter,
+				selectedMonth,
+				yearIn = oEvent.getSource().getParent().getContent()[1].getValue();
+
+			if (selectedItem) {
+				selectedMonth = selectedItem.getKey();
+
+			} else {
+				selectedMonth = "";
+			}
+
+			oFilter = new Filter({
+				filters: [
+					new Filter("mkey", sap.ui.model.FilterOperator.Contains, selectedMonth),
+					new Filter("ykey", sap.ui.model.FilterOperator.Contains, yearIn)
+				],
+				and: true
+			});
+
+			if (otherIconTab !== "0") {
+				this.byId("fileTable").getBinding("items").filter(oFilter);
+			} else {
+				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
+			}
+		},
+		_bindTimeSheetFilter: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				oTimeSheet = oLocalModel.getProperty("/TimeSheet"),
+				uploadDate = [],
+				i,
+				yearArr = [],
+				uploadYear = [],
+				dateArr = [];
+
+			for (var x of oTimeSheet) {
+				var n = x.uplodDate.split("/");
+				dateArr.push(
+					`${n[0]}`
+				);
+				yearArr.push(
+					`${n[2]}`
+				);
+			}
+
+			for (i of[...new Set(dateArr)]) {
+				uploadDate.push({
+					"uplodDate": `${i}/01/2020`,
+					"mkey": i
+				})
+			}
+
+			oLocalModel.setProperty("/MonthWise", uploadDate);
+
+			for (i of[...new Set(yearArr)]) {
+				uploadYear.push({
+					"uplodYear": i
+				})
+			}
+			oLocalModel.setProperty("/YearWise", uploadYear);
+		},
+		_bindFileFilter: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				oTimeSheet = oLocalModel.getProperty("/Files"),
+				uploadDate = [],
+				i,
+				yearArr = [],
+				uploadYear = [],
+				dateArr = [];
+
+			for (var x of oTimeSheet) {
+				var n = x.uplodDate.split("/");
+				dateArr.push(
+					`${n[0]}`
+				);
+				yearArr.push(
+					`${n[2]}`
+				);
+			}
+
+			for (i of[...new Set(dateArr)]) {
+				uploadDate.push({
+					"uplodDate": `${i}/01/2020`,
+					"mkey": i
+				})
+			}
+
+			oLocalModel.setProperty("/fileMonthWise", uploadDate);
+
+			for (i of[...new Set(yearArr)]) {
+				uploadYear.push({
+					"uplodYear": i
+				})
+			}
+			oLocalModel.setProperty("/fileYearWise", uploadYear);
+		},
+
+		_onSubmitTimeSheet: function () {
+			debugger;
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				timeSheetArr = oLocalModel.getProperty("/TimeSheet") || [],
+				oFileUp = this.onAddTimesheetFrag.getContent()[0],
+				uplodedFile = oFileUp.oFileUpload.files[0];
+
+			if (!uplodedFile) {
+				oFileUp.setValueState("Error").focus();
+				oFileUp.setValueStateText("Select a file");
+			} else {
+
+				oFileUp.setValueState("None");
+				oFileUp.setValue("");
+
+				var timeSheetUrl = URL.createObjectURL(uplodedFile),
+					uplodDate = new Date().toLocaleDateString(),
+					timeSheetObj = {
+						"timeSheetURL": timeSheetUrl,
+						"uplodDate": uplodDate,
+						"mkey": uplodDate.split("/")[0],
+						"ykey": uplodDate.split("/")[2]
+
+					};
+
+				timeSheetArr.push(timeSheetObj);
+				oLocalModel.setProperty("/TimeSheet", timeSheetArr);
+				this.onAddTimesheetFrag.close();
+
+				this._bindFileFilter();
+
+			}
+		},
+		_onSubmitFiles: function () {
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				timeSheetArr = oLocalModel.getProperty("/Files") || [],
+				oFileUp = this.onAddFilesheetFrag.getContent()[0],
+				uplodedFile = oFileUp.oFileUpload.files[0];
+
+			if (!uplodedFile) {
+				oFileUp.setValueState("Error").focus();
+				oFileUp.setValueStateText("Select a file");
+			} else {
+
+				oFileUp.setValueState("None");
+				oFileUp.setValue("");
+
+				var timeSheetUrl = URL.createObjectURL(uplodedFile),
+					uplodDate = new Date().toLocaleDateString(),
+					timeSheetObj = {
+						"timeSheetURL": timeSheetUrl,
+						"uplodDate": uplodDate,
+						"mkey": uplodDate.split("/")[0],
+						"ykey": uplodDate.split("/")[2]
+					};
+
+				timeSheetArr.push(timeSheetObj);
+				oLocalModel.setProperty("/Files", timeSheetArr);
+				this.onAddFilesheetFrag.close();
+
+				this._bindTimeSheetFilter();
+			}
+		},
 		_onRequestFrag: function () {
 			if (!this.onRequestFrag) {
 				var oId = this.createId("requestid");
@@ -53,16 +249,30 @@ sap.ui.define([
 			}
 			return this.onRequestFrag;
 		},
-		onSelect: function (oEvent) {
-			debugger;
-			var key = oEvent.getParameters().key;
-			if (key === "tab1") {
-				this._onAddTimesheetFrag().open();
-			} else if (key === "tab2") {
-				this._onAddFilesheetFrag().open();
-
+		onPressTimeSheetUpload: function () {
+			if (!this.onAddTimesheetFrag) {
+				var oId = this.createId("timeid");
+				this.onAddTimesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.timesheet", this);
+				this.getView().addDependent(this.onAddTimesheetFrag);
+				var oTitle = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("TimeSheetUpload");
+				this.onAddTimesheetFrag.setTitle(oTitle);
+				this.onAddTimesheetFrag.getButtons()[0].attachPress(this._onSubmitTimeSheet, this)
+				this.onAddTimesheetFrag.getButtons()[1].attachPress(this._onCancel, this)
 			}
+			this.onAddTimesheetFrag.open();
 
+		},
+		onPressFilesUpload: function () {
+			if (!this.onAddFilesheetFrag) {
+				var oId = this.createId("fileid");
+				this.onAddFilesheetFrag = new sap.ui.xmlfragment(oId, "SE.SMT_Employee.Fragment.timesheet", this);
+				this.getView().addDependent(this.onAddFilesheetFrag);
+				var oTitle = this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("filesUpload");
+				this.onAddFilesheetFrag.setTitle(oTitle);
+				this.onAddFilesheetFrag.getButtons()[0].attachPress(this._onSubmitFiles, this)
+				this.onAddFilesheetFrag.getButtons()[1].attachPress(this._onCancelfile, this)
+			}
+			this.onAddFilesheetFrag.open();
 		},
 		onCancel: function () {
 			this._onAddTimesheetFrag().close();
@@ -96,7 +306,7 @@ sap.ui.define([
 		},
 
 		onItemSelect: function (oEvent) {
-			debugger;
+
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 
@@ -106,7 +316,7 @@ sap.ui.define([
 		},
 		arrData: [],
 		onSubmit: function () {
-			debugger;
+
 			var oFragTimeId = this.createId("timeid");
 			var name = sap.ui.core.Fragment.byId(oFragTimeId, "empname").getValue();
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
@@ -121,7 +331,7 @@ sap.ui.define([
 
 		arr: [],
 		onLeavesubmit: function () {
-			debugger;
+
 			var oFragTimeId = this.createId("requestid");
 			// var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").getValue();
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
@@ -152,7 +362,7 @@ sap.ui.define([
 		},
 
 		onAssetsubmit: function () {
-			debugger;
+
 			var oFragTimeId = this.createId("requestid");
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "adateid").getValue();
 			var reason = sap.ui.core.Fragment.byId(oFragTimeId, "areason").getValue();
@@ -672,26 +882,26 @@ sap.ui.define([
 			}
 
 		},
-		onPress: function (oEvent) {
+		// onPress: function (oEvent) {
 
-			var oButton = oEvent.getSource();
+		// 	var oButton = oEvent.getSource();
 
-			if (!this._oPopover) {
-				Fragment.load({
+		// 	if (!this._oPopover) {
+		// 		Fragment.load({
 
-					name: "SE.SMT_Employee.Fragment.notifyPop",
-					controller: this
-				}).then(function (oPopover) {
-					this._oPopover = oPopover;
-					this.getView().addDependent(this._oPopover);
+		// 			name: "SE.SMT_Employee.Fragment.notifyPop",
+		// 			controller: this
+		// 		}).then(function (oPopover) {
+		// 			this._oPopover = oPopover;
+		// 			this.getView().addDependent(this._oPopover);
 
-					this._oPopover.openBy(oButton);
-				}.bind(this));
-			} else {
-				this._oPopover.openBy(oButton);
-			}
+		// 			this._oPopover.openBy(oButton);
+		// 		}.bind(this));
+		// 	} else {
+		// 		this._oPopover.openBy(oButton);
+		// 	}
 
-		},
+		// },
 
 		_onAddFrag: function () {
 			if (!this.onAddFrag) {
