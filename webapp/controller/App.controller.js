@@ -379,7 +379,7 @@ debugger;
 		},
 
 		onAssetsubmit: function () {
-
+debugger;
 			var oFragTimeId = this.createId("requestid");
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "adateid").getValue();
 			var reason = sap.ui.core.Fragment.byId(oFragTimeId, "areason").getValue();
@@ -420,6 +420,7 @@ debugger;
 			var currentDate = new Date();
 			// this.getView().byId("datePick").getValue();
 			sap.ui.core.Fragment.byId(oFragId, "dateid").setMinDate(currentDate);
+				sap.ui.core.Fragment.byId(oFragId, "dateid").setMaxDate(currentDate);
 		},
 		assetChange: function () {
 
@@ -427,6 +428,7 @@ debugger;
 			var currentDate = new Date();
 			// this.getView().byId("datePick").getValue();
 			sap.ui.core.Fragment.byId(oFragId, "adateid").setMinDate(currentDate);
+				sap.ui.core.Fragment.byId(oFragId, "adateid").setMaxDate(currentDate);
 		},
 
 		handleChange: function () {
