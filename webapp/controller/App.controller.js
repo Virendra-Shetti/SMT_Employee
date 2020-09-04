@@ -22,7 +22,7 @@ sap.ui.define([
 			//binding time sheet 
 			this._bindTimeSheetFilter();
 			this._bindFileFilter();
-
+			this.byId("tntToolPage").getAggregation("sideContent").setSelectedKey("page1");
 		},
 		onExit: function () {
 
@@ -48,20 +48,36 @@ sap.ui.define([
 			// $("#work_object_page_sub .about_frag").hide();
 
 		},
+
 		onSelectYear: function (oEvent) {
 			debugger;
-			var otherIconTab = this.byId("otherIconTab").getSelectedKey(),
+			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
+				otherIconTab = this.byId("otherIconTab").getSelectedKey(),
 				selectedItem = oEvent.getParameter("selectedItem"),
 				oFilter,
 				selectedYear,
+				newUploadYear = [],
 				monthIn = oEvent.getSource().getParent().getContent()[0].getSelectedKey();
+			//	getYear = oEvent.getSource().getParent().getContent()[1].getValue();
 
 			if (selectedItem) {
 				selectedYear = selectedItem.getText();
+				// var sortedYear = selectedYear - 1;
+
+				// for (var i = 0; i < 3; i++) {
+				// 	newUploadYear.push({
+				// 		"uplodYear": sortedYear + i
+				// 	})
+				// }
+				// oLocalModel.setProperty("/YearWise", newUploadYear);
 
 			} else {
 				selectedYear = "";
 			}
+
+			// if (!getYear) {
+			// 	oLocalModel.setProperty("/YearWise", this.timeSheetUploadYear);
+			// }
 
 			oFilter = new Filter({
 				filters: [
@@ -76,6 +92,7 @@ sap.ui.define([
 			} else {
 				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
 			}
+			
 		},
 		onSelectMonth: function (oEvent) {
 			debugger;
@@ -104,15 +121,18 @@ sap.ui.define([
 				this.byId("fileTable").getBinding("items").filter(oFilter);
 			} else {
 				this.byId("timeSheeTable").getBinding("items").filter(oFilter);
+			//	oEvent.getSource().getParent().getContent()[1].clearSelection();
 			}
 		},
+	//	timeSheetUploadYear: [],
 		_bindTimeSheetFilter: function () {
 			var oLocalModel = this.getOwnerComponent().getModel("localModel"),
 				oTimeSheet = oLocalModel.getProperty("/TimeSheet"),
 				uploadDate = [],
+				uploadYear =[],
 				i,
 				yearArr = [],
-				uploadYear = [],
+
 				dateArr = [];
 
 			for (var x of oTimeSheet) {
@@ -206,8 +226,7 @@ sap.ui.define([
 				oLocalModel.setProperty("/TimeSheet", timeSheetArr);
 				this.onAddTimesheetFrag.close();
 
-				this._bindFileFilter();
-
+				this._bindTimeSheetFilter();
 			}
 		},
 		_onSubmitFiles: function () {
@@ -237,7 +256,8 @@ sap.ui.define([
 				oLocalModel.setProperty("/Files", timeSheetArr);
 				this.onAddFilesheetFrag.close();
 
-				this._bindTimeSheetFilter();
+				this._bindFileFilter();
+
 			}
 		},
 		_onRequestFrag: function () {
@@ -311,7 +331,7 @@ sap.ui.define([
 		},
 
 		onItemSelect: function (oEvent) {
-
+			debugger;
 			var oItem = oEvent.getParameter("item");
 			this.byId("pageContainer").to(this.getView().createId(oItem.getKey()));
 
@@ -336,7 +356,7 @@ sap.ui.define([
 
 		arr: [],
 		onLeavesubmit: function () {
-debugger;
+			debugger;
 			var oFragTimeId = this.createId("requestid");
 			// var name= sap.ui.core.Fragment.byId(oFragTimeId, "ename").getValue();
 			var date = sap.ui.core.Fragment.byId(oFragTimeId, "dateid").getValue();
@@ -348,17 +368,13 @@ debugger;
 				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("Error");
 
 				sap.m.MessageToast.show("Please fill the blank");
-			}else if(date === ""){
-				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
-				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("Error");
-			}
-			
-			else if(reason === ""){
+			} else if (date === "") {
+				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
+				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("Error");
+			} else if (reason === "") {
 				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueStateText("please give the reason for leave");
 				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("Error");
-			}
-			
-			else {
+			} else {
 				var payload = {
 					Reason: reason,
 					Date: date,
@@ -372,9 +388,9 @@ debugger;
 			}
 			// sap.ui.core.Fragment.byId(oFragTimeId, "ename").setValue("");
 			sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValue("");
-				sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("None");
+			sap.ui.core.Fragment.byId(oFragTimeId, "reason").setValueState("None");
 			sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValue("");
-				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("None");
+			sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueState("None");
 
 		},
 
@@ -387,13 +403,11 @@ debugger;
 			if (reason === "" && date === "") {
 
 				sap.m.MessageToast.show("Please fill the blank");
-			}else if(date === ""){
-				 sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
-			}
-			else if(reason === ""){
+			} else if (date === "") {
+				sap.ui.core.Fragment.byId(oFragTimeId, "dateid").setValueStateText("select date");
+			} else if (reason === "") {
 				var reason = sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValueStateText("please give the reason for leave");
-			}
-			else {
+			} else {
 				var payload = {
 					Reason: reason,
 					Date: date,
@@ -407,9 +421,9 @@ debugger;
 			}
 			// sap.ui.core.Fragment.byId(oFragTimeId, "aname").setValue("");
 			sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValue("");
-				sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValueState("None");
+			sap.ui.core.Fragment.byId(oFragTimeId, "areason").setValueState("None");
 			sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValue("");
-				sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValueState("None");
+			sap.ui.core.Fragment.byId(oFragTimeId, "adateid").setValueState("None");
 		},
 		onClose: function () {
 			this._onRequestFrag().close();
@@ -590,7 +604,7 @@ debugger;
 
 								$('#imgupload').trigger('click');
 
-								$('#imgupload').on('input', function () {
+								$('#imgupload').on('change', function () {
 
 									var oPromise = new Promise(function (resolve) {
 										var $i = $('#imgupload'), // Put file input ID here
@@ -605,6 +619,7 @@ debugger;
 
 										};
 										//fr.readAsText( file );
+										//Reads the content of the file and give base64 format
 										fr.readAsDataURL(file);
 									});
 
@@ -946,8 +961,8 @@ debugger;
 		onnewsCancel: function () {
 			this._onAddFrag().close();
 		},
-		onRequestCancel:function(){
-				this._onRequestFrag().close();
+		onRequestCancel: function () {
+			this._onRequestFrag().close();
 		},
 		arr: [],
 		onPost: function () {

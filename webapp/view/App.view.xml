@@ -19,7 +19,7 @@
 						<!--	</tnt:ToolHeader>-->
 						<!--</tnt:header>-->
 						<tnt:sideContent>
-							<tnt:SideNavigation itemSelect=".onItemSelect">
+							<tnt:SideNavigation itemSelect="onItemSelect">
 								<tnt:NavigationList items="{localModel>/sideNav}">
 									<tnt:items>
 										<tnt:NavigationListItem text="{localModel>navItem}" icon="{localModel>icon}" key="{localModel>key}"/>
@@ -85,7 +85,7 @@
 									<ScrollContainer id="page3" horizontal="false" vertical="true" height="100%">
 										<IconTabBar id="otherIconTab" class="sapUiResponsiveContentPadding" expandable="false">
 											<items>
-												<IconTabFilter text="{i18n>timeSheet}" key="0">
+												<IconTabFilter tooltip="{i18n>timeSheet}" key="0" icon="sap-icon://timesheet">
 													<Table id="timeSheeTable" items="{localModel>/TimeSheet}">
 														<headerToolbar>
 															<Toolbar>
@@ -108,10 +108,10 @@
 														</headerToolbar>
 														<columns>
 															<Column>
-																<Text text="{i18n>uploadDate}"/>
+																<Text text="{i18n>uploadDate}" class="listheadertext"/>
 															</Column>
 															<Column>
-																<Text text="{i18n>timeSheet}"/>
+																<Text text="{i18n>timeSheet}" class="listheadertext"/>
 															</Column>
 														</columns>
 														<items>
@@ -125,8 +125,8 @@
 														</items>
 													</Table>
 												</IconTabFilter>
-												<IconTabFilter text="{i18n>files}" key="1">
-													<Table id="fileTable" items="{localModel>/Files}">
+												<IconTabFilter tooltip="{i18n>files}" key="1" icon="sap-icon://doc-attachment">
+													<Table id="fileTable" items="{localModel>/Files}" >
 														<headerToolbar>
 															<Toolbar>
 																<content>
@@ -136,22 +136,22 @@
 																				text="{ path: 'localModel>uplodDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern:'MMM',source: { pattern: 'MM/dd/yyyy' }} }"/>
 																		</items>
 																	</ComboBox>
-																	<ComboBox placeholder="{i18n>year}" items="{localModel>/fileYearWise}" selectionChange="onSelectYear">
+																	<ComboBox placeholder="{i18n>year}" items="{localModel>/fileYearWise}" selectionChange="onSelectYear" loadItems="onLoadYear">
 																		<items>
 																			<core:Item text="{localModel>uplodYear}"/>
 																		</items>
 																	</ComboBox>
 																	<ToolbarSpacer/>
-																	<Button text="{i18n>upload}" press="onPressFilesUpload"/>
+																	<Button text="{i18n>upload}" press="onPressFilesUpload" />
 																</content>
 															</Toolbar>
 														</headerToolbar>
 														<columns>
 															<Column>
-																<Text text="{i18n>uploadDate}"/>
+																<Text text="{i18n>uploadDate}" class="listheadertext"/>
 															</Column>
 															<Column>
-																<Text text="{i18n>files}"/>
+																<Text text="{i18n>files}" class="listheadertext"/>
 															</Column>
 														</columns>
 														<items>

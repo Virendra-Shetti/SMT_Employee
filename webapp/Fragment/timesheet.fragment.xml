@@ -3,7 +3,7 @@
 		<u:FileUploader class="sapUiMediumMargin" placeholder="{i18n>selectFile}" style="Emphasized" width="80%"></u:FileUploader>
 		<buttons>
 			<Button text="{i18n>submit}" />
-			<Button text="{i18n>Cancel}" />
+			<Button text="{i18n>Cancel}" type="Reject" />
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

@@ -8,17 +8,17 @@
     position: absolute !important;
     margin-top: -3em !important;
     margin-left: 45% !important;
-    
 }
 
 .coverImage {
     object-fit: cover !important;
 }
-/*.sapMBtnText{*/
-/*	margin-left:250px;*/
-/*}*/
 
+.listheadertext {
+    color: white !important;
+}
 
-/*.sapMBtn{*/
-/*	margin:3px;*/
-/*}*/
+.addbutton .sapMBtnInner{
+    background-color: rgb(179 76 76 / 0%) !important;
+    border-color: rgb(179 76 76 / 0%) !important;
+}
