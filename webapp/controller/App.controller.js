@@ -999,10 +999,7 @@ var leaveModel=	this.getOwnerComponent().getModel("newsData").getProperty("/leav
 				sap.ui.core.Fragment.byId(oFragId, "time").setValue("");
 		},
 
-		onRequestCancel: function () {
-			this._onRequestFrag().close();
-		},
-
+		
 		arr: [],
 		onPost: function () {
 debugger;
