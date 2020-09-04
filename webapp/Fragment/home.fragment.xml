@@ -46,7 +46,7 @@
 			<f:header>
 				<card:Header title="{i18n>NewsFeed}"/>
 				<ToolbarSpacer></ToolbarSpacer>
-				<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
+				<Button text="AddNewsFeed" type="Neutral" class="addbutton" width="150px" icon="sap-icon://add" press="onAdd"></Button>
 			</f:header>
 			<f:content>
 				<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
