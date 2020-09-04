@@ -1,69 +1,63 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"  xmlns:layout="sap.ui.layout"
-	xmlns:form="sap.ui.layout.form" xmlns:card="sap.f.cards" xmlns:f="sap.f" >
-
-		<f:Card class="sapUiMediumMargin" width="44%">
-											<f:header>
-												<card:Header title="{i18n>Birthday}"/>
-											</f:header>
-											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List items="{birthdayModel>/Employee}">
-
-														<items>
-															<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
-														</items>
-
-													</List>
-												</ScrollContainer>
-											</f:content>
-										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="44%">
-											<f:header>
-												<card:Header title="{i18n>NewHires}" />
-											</f:header>
-											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List items="{newhiresData>/Employee}">
-														<items>
-															<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}"
-																number="{newhiresData>joinDate}"></ObjectListItem>
-														</items>
-													</List>
-												</ScrollContainer>
-											</f:content>
-										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="44%">
-											<f:header>
-												<card:Header title="{i18n>NewsFeed}" />
-												<ToolbarSpacer></ToolbarSpacer>
-												<Button text="AddNewsFeed" type="Transparent" width="150px" icon="sap-icon://add" press="onAdd"></Button>
-											</f:header>
-											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List items="{newsData>/data}" >
-														<items>
-
-															<NotificationListItem title="{newsData>Name}" description="{newsData>News}" showCloseButton="true" datetime="{newsData>sDate}"
-																authorName="{newsData>Time}" close=".onItemClose" press=".onListItemPress"/>
-														</items>
-													</List>
-												</ScrollContainer>
-											</f:content>
-										</f:Card>
-										<f:Card class="sapUiMediumMargin" width="44%">
-											<f:header>
-												<card:Header title="{i18n>QuickLinks}"  ></card:Header>
-											</f:header>
-											<f:content>
-												<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
-													<List items="{quicklinksData>/data}">
-														<items>
-															<FeedListItem icon="{quicklinksData>icon}" info="{quicklinksData>Author}" timestamp="{quicklinksData>Date}" text="{quicklinksData>Text}"/>
-														</items>
-													</List>
-												</ScrollContainer>
-											</f:content>
-										</f:Card>
-	
-									
-										</core:FragmentDefinition>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	xmlns:card="sap.f.cards" xmlns:f="sap.f">
+	<f:Card class="sapUiMediumMargin" width="44%">
+		<f:header>
+			<card:Header title="{i18n>Birthday}"/>
+		</f:header>
+		<f:content>
+			<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+				<List items="{birthdayModel>/Employee}">
+					<items>
+						<ObjectListItem title="{birthdayModel>empName}" number="{birthdayModel>date}"></ObjectListItem>
+					</items>
+				</List>
+			</ScrollContainer>
+		</f:content>
+	</f:Card>
+	<f:Card class="sapUiMediumMargin" width="44%">
+		<f:header>
+			<card:Header title="{i18n>NewHires}"/>
+		</f:header>
+		<f:content>
+			<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+				<List items="{newhiresData>/Employee}">
+					<items>
+						<ObjectListItem intro="{newhiresData>EmpId}" title="{newhiresData>empName}" numberUnit="{newhiresData>Department}"
+							number="{newhiresData>joinDate}"></ObjectListItem>
+					</items>
+				</List>
+			</ScrollContainer>
+		</f:content>
+	</f:Card>
+	<f:Card class="sapUiMediumMargin" width="44%">
+		<f:header>
+			<card:Header title="{i18n>NewsFeed}"/>
+			<ToolbarSpacer></ToolbarSpacer>
+			<Button text="AddNewsFeed" type="Neutral" class="addbutton" width="150px" icon="sap-icon://add" press="onAdd"></Button>
+		</f:header>
+		<f:content>
+			<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+				<List items="{newsData>/data}">
+					<items>
+						<NotificationListItem title="{newsData>Name}" description="{newsData>News}" showCloseButton="true" datetime="{newsData>sDate}"
+							authorName="{newsData>Time}" close=".onItemClose" press=".onListItemPress"/>
+					</items>
+				</List>
+			</ScrollContainer>
+		</f:content>
+	</f:Card>
+	<f:Card class="sapUiMediumMargin" width="44%">
+		<f:header>
+			<card:Header title="{i18n>QuickLinks}"></card:Header>
+		</f:header>
+		<f:content>
+			<ScrollContainer height="200px" width="100%" vertical="true" focusable="true">
+				<List items="{quicklinksData>/data}">
+					<items>
+						<FeedListItem icon="{quicklinksData>icon}" info="{quicklinksData>Author}" timestamp="{quicklinksData>Date}" text="{quicklinksData>Text}"/>
+					</items>
+				</List>
+			</ScrollContainer>
+		</f:content>
+	</f:Card>
+</core:FragmentDefinition>

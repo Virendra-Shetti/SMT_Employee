@@ -1,23 +1,23 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<!--<VBox class="sapUiSmallMargin">-->
-		<f:SimpleForm class="work_frag" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+		<f:SimpleForm class="work_frag" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
 			adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
 			singleContainerFullSize="false">
 			<f:content>
 				<core:Title/>
 				<Label text="{i18n>empID}"/>
-				<Text text="SIG112" class="sapUiMediumMarginBottom" />
+				<Input value="SIG112" class="sapUiMediumMarginBottom" editable="false"/>
 				<Label text="{i18n>client}"/>
-				<Text text="SAP LABS" class="sapUiMediumMarginBottom"/>
+				<Input value="SAP LABS" class="sapUiMediumMarginBottom" editable="false"/>
 				<Label text="{i18n>workplace}"/>
-				<Text text="Bengaluru"/>
+				<Input value="Bengaluru" editable="false"/>
 				<core:Title/>
 				<Label text="{i18n>jobtitle}"/>
-				<Text text="Developer" class="sapUiMediumMarginBottom"/>
+				<Input value="Developer" class="sapUiMediumMarginBottom" editable="false"/>
 				<Label text="{i18n>jobclass}"/>
-				<Text text="Senior UI Developer" class="sapUiMediumMarginBottom"/>
+				<Input value="Senior UI Developer" class="sapUiMediumMarginBottom" editable="false"/>
 				<Label text="{i18n>empLevel}"/>
-				<Text text="L4"/>
+				<Input value="L4" editable="false"/>
 			</f:content>
 		</f:SimpleForm>
 	<!--</VBox>-->

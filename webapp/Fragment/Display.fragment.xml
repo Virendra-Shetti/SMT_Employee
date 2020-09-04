@@ -1,30 +1,30 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<!--<VBox class="sapUiSmallMargin">-->
-	<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+	<f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
 		adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2"
 		singleContainerFullSize="false">
 		<f:content>
 			<core:Title/>
 			<Label text="{i18n>name}"/>
-			<Text text="{localModel>empName}" class="sapUiMediumMarginBottom"/>
+			<Input value="{localModel>empName}" class="sapUiMediumMarginBottom" editable="false"/>
 			<Label text="{i18n>mob}"/>
-			<Text text="{localModel>mob}" class="sapUiMediumMarginBottom"/>
+			<Input value="{localModel>mob}" class="sapUiMediumMarginBottom" editable="false"/>
 			<Label text="{i18n>mail}"/>
-			<Text text="{localModel>mailId}" class="sapUiMediumMarginBottom"/>
+			<Input value="{localModel>mailId}" class="sapUiMediumMarginBottom" editable="false"/>
 			<Label text="{i18n>DOB}"/>
-			<Text text="{ path: 'localModel>DOB', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium'} }"/>
+			<Input value="{ path: 'localModel>DOB', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium'} }" editable="false"/>
 			<core:Title/>
 			<Label text="{i18n>address}"/>
 			<VBox>
-				<Text text="{localModel>Address1}"/>
-				<Text text="{localModel>Address2}"/>
+				<Input value="{localModel>Address1}" editable="false"/>
+				<Input value="{localModel>Address2}" editable="false"/>
 			</VBox>
 			<Label text="{i18n>pincode}"/>
-			<Text text="{localModel>pinCode}" class="sapUiMediumMarginBottom"/>
+			<Input value="{localModel>pinCode}" class="sapUiMediumMarginBottom" editable="false"/>
 			<Label text="{i18n>adhar}"/>
-			<Text text="{localModel>adhar}" class="sapUiMediumMarginBottom"/>
+			<Input value="{localModel>adhar}" class="sapUiMediumMarginBottom" editable="false"/>
 			<Label text="{i18n>pan}"/>
-			<Text text="{localModel>pan}"/>
+			<Input value="{localModel>pan}" editable="false"/>
 		</f:content>
 	</f:SimpleForm>
 	<!--<f:SimpleForm class="work_frag" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"-->
