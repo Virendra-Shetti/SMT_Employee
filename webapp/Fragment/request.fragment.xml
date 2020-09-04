@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns="sap.m"  xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
 	<Dialog showHeader="false" contentHeight="70%" contentWidth="40%">
 		<VBox alignContent="Center" alignItems="Center" justifyContent="Center" class="simpleform">
 			<form:SimpleForm editable="true" width="500px">
@@ -6,36 +6,46 @@
 					<items>
 						<IconTabFilter text="Log">
 							<Label/>
-							<List items="{LeaveData>/leavedata}">
+							<List items="{newsData>/leavedata}">
 								<items>
-									<FeedListItem icon="{LeaveData>Icon}" info="{LeaveData>Status}" timestamp="{LeaveData>Date}" text="{LeaveData>Reason}"
-										convertLinksToAnchorTags="All"/>
+								
+									<FeedListItem  icon="{newsData>Icon}" info="{newsData>Status}" timestamp="{newsData>Date}" text="{newsData>Reason}" convertLinksToAnchorTags="All"/>
 								</items>
 							</List>
 						</IconTabFilter>
-						<IconTabFilter text="Leave Request">
+						<IconTabFilter text="LeaveRequest">
 							<Label/>
 							<form:SimpleForm>
+								<!--<Label text="{i18n>Label_EmpName}"></Label>-->
+								<!--<Input id="ename" maxLength="10"></Input>-->
+								<!--<Label text="{i18n>Label_EmpId}"></Label>-->
+								<!--<Input id="eid"  maxLength="10"></Input>-->
 								<Label text="{i18n>Label_Date}"></Label>
-								<DatePicker id="dateid" change="Change"></DatePicker>
+								<!--<DatePicker id="dateid" change="Change"></DatePicker>-->
+								<DateRangeSelection id="dateid" change="Change"></DateRangeSelection>
 								<Label text="{i18n>Label_Reason}"></Label>
 								<TextArea id="reason"></TextArea>
 								<Label></Label>
+							
 								<Button text="Submit" press="onLeavesubmit" width="100%"></Button>
+							
+								
 								<!--<Button text="Cancel" press="onLeaveCancel" width="70%" type="Reject"></Button>-->
 							</form:SimpleForm>
 						</IconTabFilter>
-						<IconTabFilter text="Asset Request">
+						<IconTabFilter text="AssetRequest">
 							<Label/>
 							<form:SimpleForm>
+								<!--<Label text="{i18n>Label_EmpName}"></Label>-->
+								<!--<Input id="aname"  maxLength="10"></Input>-->
+								<!--<Label text="{i18n>Label_EmpId}"></Label>-->
+								<!--<Input id="aid"  maxLength="10"></Input>-->
 								<Label text="{i18n>Label_Date}"></Label>
 								<DatePicker id="adateid" change="assetChange"></DatePicker>
 								<Label text="{i18n>Label_AReason}"></Label>
 								<TextArea id="areason"></TextArea>
 								<Label ></Label>
-						
 								<Button text="Submit" press="onAssetsubmit" width="100%"></Button>
-							
 								<!--<Button text="Cancel" press="onAssetCancel" width="70%" type="Reject"></Button>-->
 							</form:SimpleForm>
 						</IconTabFilter>
@@ -43,8 +53,8 @@
 				</IconTabBar>
 			</form:SimpleForm>
 		</VBox>
-			<endButton>
-			<Button text="Cancel" press="onRequestCancel"  ></Button>
-		     </endButton>
+		<endButton>
+				<Button text="Cancel" press="onRequestCancel"  type="Reject"></Button>
+		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

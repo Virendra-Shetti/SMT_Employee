@@ -2,21 +2,21 @@
 	<Dialog  title="{i18n>addnewsfeed}">
 		<form:SimpleForm>
 			<Label text="{i18n>activityname}"/>
-			<Input id="name" maxLength="10"></Input>
+			<Input id="name" maxLength="20"></Input>
 			<Label text="{i18n>newsdescription}"/>
 			<TextArea id="desc" maxLength="50"/>
 			<Label text="{i18n>date}"></Label>
-			<DatePicker id="datePick" change="handleChange" validationError="valError"></DatePicker>
+			<DatePicker id="datePick" change="handleChange"  validationError="valError"></DatePicker>
 			
 			<Label text="{i18n>time}"></Label>
 			<TimePicker id="time"></TimePicker>
 			<Label></Label>
 			</form:SimpleForm>
 		     <beginButton>
-			<Button text="Post" press="onPost" width="50%" type="Emphasized"></Button>
+			<Button text="Post" press="onPost"  type="Emphasized"></Button>
 			</beginButton>
 			<endButton>
-			<Button text="Cancel" press="onnewsCancel"  ></Button>
+			<Button text="Cancel" press="onnewsCancel" type="Reject" ></Button>
 		     </endButton>
 		
 	</Dialog>
